@@ -1,0 +1,1 @@
+../../../../../../../local/xenomai/kbuild/ksrc/skins/vxworks/demos/satch.c

@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# chkconfig: - 66 34
+# description: dhcrelay provides a relay for Dynamic Host Control Protocol.
+
+# Source function library
+. /etc/init.d/functions
+
+RETVAL=0
+prog=dhcrelay
+dhcrelay=/usr/sbin/dhcrelay
+lockfile=/var/lock/subsys/dhcrelay
+
+start() {
+    [ -x $dhcrelay ] || exit 5
+    [ -f /etc/sysconfig/dhcrelay ] || exit 6
+    . /etc/sysconfig/dhcrelay
+    [ -z "$DHCPSERVERS" ] && exit 6
+    echo -n $"Starting $prog: "
+    daemon $dhcrelay $([ -n "$INTERFACES" ] && for int in $INTERFACES ; do echo -n " -i $int" ; done) $DHCPSERVERS
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Shutting down $prog: "
+    killproc $prog -TERM
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    reload)
+        RETVAL=3
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    condrestart)
+        if [ -f $lockfile ]; then
+            stop
+            start
+        fi
+        ;;
+    status)
+        status $prog
+        RETVAL=$?
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        RETVAL=3
+        ;;
+esac
+
+exit $RETVAL

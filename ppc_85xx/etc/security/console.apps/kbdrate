@@ -1,0 +1,3 @@
+USER=<user>
+PROGRAM=/usr/sbin/kbdrate
+SESSION=false

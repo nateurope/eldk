@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=
+libdir=/lib
+includedir=/usr/include
+
+Name: devmapper
+Description: device-mapper library
+Version: "1.02.17 (2007-01-29)"
+Cflags: -I${includedir} 
+Libs: -L${libdir} -ldevmapper
+Libs.private: -lselinux -lsepol

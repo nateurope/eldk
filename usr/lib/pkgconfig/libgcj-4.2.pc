@@ -1,0 +1,10 @@
+prefix=/var/tmp/eldk.UZpAG7/usr/crosstool/gcc-4.2.2-glibc-20070515T2025-eldk/powerpc-linux
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libgcj
+Description: libgcj
+Version: 4.2.2
+Libs: -L${libdir} -lgcj
+Cflags: -I${includedir}

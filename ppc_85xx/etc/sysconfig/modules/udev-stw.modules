@@ -1,0 +1,4 @@
+#!/bin/sh
+for i in loop nvram floppy parport lp sonypi;do
+	modprobe $i >/dev/null 2>&1
+done

@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>value</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="index.html" title="libuser Reference Manual">
+<link rel="up" href="ch01.html" title="libuser">
+<link rel="prev" href="libuser-config.html" title="config">
+<link rel="next" href="libuser-entity.html" title="entity">
+<meta name="generator" content="GTK-Doc V1.7 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="libuser">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libuser-config.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libuser Reference Manual</th>
+<td><a accesskey="n" href="libuser-entity.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2566580" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2611811" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libuser-value"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2566580"></a><span class="refentrytitle">value</span>
+</h2>
+<p>value &#8212; Simplified interface to GValue types used in libuser entities.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+#define     <a href="libuser-value.html#LU-VALUE-INVALID-ID:CAPS">LU_VALUE_INVALID_ID</a>
+char*       <a href="libuser-value.html#lu-value-strdup">lu_value_strdup</a>                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-value.html#lu-value-init-set-attr-from-string">lu_value_init_set_attr_from_string</a>
+                                            (<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value,
+                                             const char *attr,
+                                             const char *string,
+                                             lu_error_t **error);
+void        <a href="libuser-value.html#lu-value-init-set-id">lu_value_init_set_id</a>            (<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value,
+                                             id_t id);
+id_t        <a href="libuser-value.html#lu-value-get-id">lu_value_get_id</a>                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+int         <a href="libuser-value.html#lu-values-equal">lu_values_equal</a>                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *a,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *b);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2611811"></a><h2>Description</h2>
+<p>
+Libuser entities store attribute values as <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>, which allows representing
+any possible data type.  Only a few types are needed in practice; the only
+types applications should hard-code are <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a> and <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>
+(<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a> can usually be used as a fallback for other number types).
+</p>
+<p>
+The only currently used data types that are not conveniently supported using
+the above types are <span class="type">uid_t</span> and <span class="type">gid_t</span> (which can be together represented in
+<span class="type">id_t</span>), because they can support values outside of the range of <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#glong"
+><span class="type">glong</span></a>.  Helper
+functions are provided to convert values between <span class="type">id_t</span> and <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>, even if the
+value is stored using <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.  The <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a> types used for storing <span class="type">id_t</span>
+values are an internal implementation detail of libuser and applications should
+not rely on them.
+</p>
+<p>
+Values of each attribute are expected to have a specific type, documented in
+the documentation of the specific attribute name.  Using other types (e.g.
+using <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a> for <a href="libuser-entity.html#LU-UIDNUMBER:CAPS"><code class="literal">LU_UIDNUMBER</code></a>) is not allowed and results in undefined
+behavior.. You can use <a href="libuser-value.html#lu-value-strdup"><code class="function">lu_value_strdup()</code></a> and
+<a href="libuser-value.html#lu-value-init-set-attr-from-string"><code class="function">lu_value_init_set_attr_from_string()</code></a> for conversion between strings and values
+appropriate for a specific attribute.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2612010"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2612020"></a><h3>
+<a name="LU-VALUE-INVALID-ID:CAPS"></a>LU_VALUE_INVALID_ID</h3>
+<a class="indexterm" name="id2612033"></a><pre class="programlisting">#define LU_VALUE_INVALID_ID ((id_t)-1)
+</pre>
+<p>
+An <span class="type">id_t</span> value that matches no valid user or group ID.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2612057"></a><h3>
+<a name="lu-value-strdup"></a>lu_value_strdup ()</h3>
+<a class="indexterm" name="id2612069"></a><pre class="programlisting">char*       lu_value_strdup                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Converts <em class="parameter"><code>value</code></em>, of any type used by libuser, to a string.  Preferable
+to hard-coding checks for expected value types.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>value
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>string, should be freed by <a
+href="/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html#g-free"
+><code class="function">g_free()</code></a>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2612145"></a><h3>
+<a name="lu-value-init-set-attr-from-string"></a>lu_value_init_set_attr_from_string ()</h3>
+<a class="indexterm" name="id2612158"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_value_init_set_attr_from_string
+                                            (<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value,
+                                             const char *attr,
+                                             const char *string,
+                                             lu_error_t **error);</pre>
+<p>
+Initializes a zero-filled (uninitialized) <em class="parameter"><code>value</code></em> for storing a value of
+attribute <em class="parameter"><code>attr</code></em> and sets it to the contents of <em class="parameter"><code>string</code></em>.  To see whether a
+specific type is used for an attribute, see the documentation of that
+attribute.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>string</code></em>&#160;:</span></td>
+<td>the string to convert
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs, or <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> if <em class="parameter"><code>attr</code></em> is
+unknown
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success, <a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS"
+><code class="literal">FALSE</code></a> on error or if <em class="parameter"><code>attr</code></em> is unknown
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2612361"></a><h3>
+<a name="lu-value-init-set-id"></a>lu_value_init_set_id ()</h3>
+<a class="indexterm" name="id2612374"></a><pre class="programlisting">void        lu_value_init_set_id            (<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value,
+                                             id_t id);</pre>
+<p>
+Initializes a zero-filled (uninitialized) <em class="parameter"><code>value</code></em> with an unspecified type and
+sets it to <em class="parameter"><code>id</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>id</code></em>&#160;:</span></td>
+<td>user or group ID.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2612460"></a><h3>
+<a name="lu-value-get-id"></a>lu_value_get_id ()</h3>
+<a class="indexterm" name="id2612473"></a><pre class="programlisting">id_t        lu_value_get_id                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Get the contents of <em class="parameter"><code>value</code></em>. <em class="parameter"><code>value</code></em> should be initialized by
+<a href="libuser-value.html#lu-value-init-set-id"><code class="function">lu_value_init_set_id()</code></a> or use <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a> or <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>value</code></em> does not contain a valid <span class="type">id_t</span> value, <a href="libuser-value.html#LU-VALUE-INVALID-ID:CAPS"><code class="literal">LU_VALUE_INVALID_ID</code></a>
+is returned.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>ID value or <a href="libuser-value.html#LU-VALUE-INVALID-ID:CAPS"><code class="literal">LU_VALUE_INVALID_ID</code></a>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2612621"></a><h3>
+<a name="lu-values-equal"></a>lu_values_equal ()</h3>
+<a class="indexterm" name="id2612633"></a><pre class="programlisting">int         lu_values_equal                 (const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *a,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *b);</pre>
+<p>
+Check whether <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> have the same type and value.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>a</code></em>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>b</code></em>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+><span class="type">GValue</span></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><span class="type">TRUE</span></a> if <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> have the same type and value
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</body>
+</html>

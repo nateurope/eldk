@@ -1,0 +1,1 @@
+../../../../../../local/xenomai/kbuild/ksrc/drivers/can/mscan/Makefile

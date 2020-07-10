@@ -1,0 +1,2129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.we3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>Mbedthis AppWeb Building from Source Code</title>
+
+<!-- BeginDsi "dsi/meta.html" -->
+	<meta name="keywords" content="embedded web server, web server software, 
+		embedded HTTP, application web server, embedded server,
+		small web server, HTTP server, library web server, library HTTP,
+		HTTP library" />
+	<meta name="description" content="Mbedthis Sofware provides 
+		open source embedded web servers for devices and applications." />
+	<meta name="robots" content="index,follow" />
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<!-- EndDsi -->
+
+<!-- BeginDsi "dsi/js.html" -->
+	<script language="JavaScript" type="text/javascript">
+		document._ROOT_="../../../";
+	</script>
+<!-- EndDsi -->
+
+<!-- BeginDsi "dsi/style.html" -->
+	<link rel="stylesheet" type="text/css" href="../../../css/doc.css">
+<!-- EndDsi -->
+
+<style type="text/css">
+<!--
+.style3 {color: #FFFFFF; font-weight: bold; }
+-->
+</style>
+</head><body marginwidth="0" marginheight="0" topmargin="0" leftmargin="0">
+<!-- BeginDsi "dsi/navTop.html" -->
+	<div class="background">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td>
+					<a name="top"></a>
+					<img src="../../../images/backLeft.png" width="400" 
+						height="93" border="0" ismap usemap="#home" /><br />
+					<map name="home">
+						<area coords="0,0,93,93" 
+						href="http://www.mbedthis.com/index.html" />
+					</map>
+				</td>
+				<td width="100%">
+					<img src="../../../images/backMiddle.png" width="100%" 
+						height="93" border="0" /><br />
+				</td>
+				<td>
+					<img src="../../../images/backRight.png" width="354" 
+						height="93" border="0" /><br />
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="navTop"> 
+		<table cellpadding="0" cellspacing="0" border="0" align="top">
+			<tr>
+				<td valign="bottom"> 
+					<a href="http://www.mbedthis.com/" class="navTop"
+					>Mbedthis Home</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../product/index.html" class="navTop"
+					>Documentation Home</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../guide/appweb/users/admin/overview.html" class="navTop"
+					>Administration</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../api/gen/appweb/overview.html" class="navTop"
+					>Programmers Reference</a>
+				</td>
+				<td valign="bottom"> 
+<!--
+					<form class="smallText" action="../../../search.php" 
+						method="post" name="searchForm" id="searchForm">
+					</form>
+					&nbsp; 
+					<input class="smallText" type="text" name="search" 
+						align="right" id="searchInput" size="15" maxlength="50"
+						value="Sorry, No Searching" />
+-->
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<!-- EndDsi -->
+
+<div class="navHistory"> 
+<!-- BeginDsi "dsi/navHistory.html" -->
+	<a href="../../../product/index.html">Documentation Home</a> &gt; 
+<!-- EndDsi -->
+
+Source Code &gt; <span style="font-weight: bold; color: rgb(248, 248, 248);">Building AppWeb From Source Code</span> </div>
+<table height="100%" border="0" class="contentTable">
+  <tbody>
+    <tr>
+      <td class="content"><div class="guideHeader">
+          <h1><b> 
+<!-- BeginDsi "dsi/backArrow.html" -->
+			<a href="../../../product/index.html"><img width="19" height="14" 
+				class="nav" src="../../../images/leftArrow.gif" /></a>
+<!-- EndDsi -->
+
+Building AppWeb From Source Code<br>
+            </b></h1>
+        </div>
+        <div class="guideSection">
+          <p>This
+document contains a description of the build process to rebuild AppWeb
+on a supported platform using the AppWeb source code package.
+Additional instructions apply to building the source code from the
+Subversion source code repository. If you are wanting to port AppWeb to
+a new platform, please read <a href="porting.html">Porting AppWeb</a>.</p>
+          <p>For the product release notes and a detailed description of the
+          	installation procedure, please consult the <a href="../../../product/releaseNotes.html">Release
+          	Notes</a> supplied with this release. The INSTALL.TXT file may also
+          	provide additional material - though is substantially similar to
+          	this document. </p>
+          <h2><a name="overview" id="overview"></a> <a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Overview</h2>
+          <p>The
+appweb source distribution contains all the necessary source files,
+headers, tools and test framework to reconfigure, build and verify the
+Mbedthis AppWeb Server. See <a href="#keyFiles">Key Files</a> below for a list of the important directories and files and their purposes.</p>
+          <h2><a name="supportedPlatforms" id="supportedPlatforms"></a> <a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Supported Platforms<br>
+          </h2>
+          <p>A variety of build environments are supported on various platforms:</p>
+          <h3>Linux</h3>
+          <ul>
+            <li> Linux 2.4, 2.6 with GNU C/C++, GNU make. (See <a href="#cross">cross-compilation</a> below if using uClinux) </li>
+          </ul>
+          <h3>Windows</h3>
+          <ul>
+            <li>Microsoft Windows XP or 2003 with Visual Studio 6.0 (service
+            	pack 5) or Microsoft Visual Studio.NET or .NET 2003</li>
+          </ul>
+<h3>Solars</h3>
+<ul>
+  <li>Solaris 8 or later with the Solaris compiler and development tools. </li>
+</ul>
+<h3>VxWorks</h3>
+<ul>
+  <li>Wind River Tornado II and VxWorks 5.4 (See <a href="#cross">cross-compilation</a> below) </li>
+</ul>
+<p>The build procedure is substantially the same for all supported platforms. A <em>configure </em>program is used to select features, options and modules and the <em>make </em>program is used to build AppWeb.</p>
+          <p>On Windows  and when doing cross-development on a Windows system, you need the Cygwin UNIX emulation development tools. These provide UNIX like commands under Windows and provides a consistent development environment on Windows and Unix/Linux. If you do not have Cygwin installed, a subset of these tools, called the WinTools, may be downloaded from the AppWeb download site. Building on windows is performed using the Microsoft C compiler and the GNU make and shell utilities. Microsoft Visual Studio may be used for debugging, but building is performed using <em>make.</em></p>
+          <p>The
+source has been ported to Linux, Windows, Solaris, VxWorks and Mac OSX. It has been tested under Fedora Linux based on the Linux 2.6
+Kernel, Red Hat Linux 9.0 using the 2.4 Kernel, Microsoft Windows
+XP and VxWorks 5.4. Both single and multi-cpu systems are supported. Mbedthis AppWeb is
+quite portable and you are welcome to try your hand at porting it to a
+new platform. See the <a href="porting.html">Porting Guide</a> for more details.</p>
+          <p>&nbsp;</p>
+		  <a name="gettingStarted" id="gettingStarted" />
+          <h2> <a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Setup the Environment for Building  </a></h2>
+          <h3>Linux and Unix </h3>
+          <p>If you wish to debug programs locally in your build tree, you will need to modify your environment to define the LD_LIBRARY_PATH variable so that AppWeb programs can locate the dynamically loaded modules and libraries.. If you only wish to build and install without running in the build tree, you do <span style="font-weight: bold;">not</span> need to modify your environment.</p>
+          <p>Set the <b>LD_LIBRARY_PATH</b> environment variable to include the <span style="font-weight: bold;">bin</span>
+directory in the source directory. This overrides the library search
+path compiled into the various AppWeb executables which is normally set
+to the build prefix (/etc/appweb). </p>
+          <p>LD_LIBRARY_PATH has a format similar to PATH and can be set via the command: </p>
+          <pre>export LD_LIBRARY_PATH=/usr/src/appweb-VERSION/bin:$LD_LIBRARY_PATH</pre>
+          <p>This command may vary if you specify a non-default source installation directory, but normally this is location is: </p>
+          <pre>/usr/src/appweb-VERSION/bin</pre>
+          <p>If you have installed AppWeb in a non-default location, replace<b style="font-weight: bold;"> </b>the
+path with the current installation directory for the source. You may
+wish to include these commands in your .profile or .bashrc login script
+to the environment is correctly setup each time you login.</p>
+          <h3>Windows</h3>
+          <p>If you are building for Windows or using Windows for cross development, you  need to define certain Microsoft compiler environment variables as described in the Microsoft installation procedure. These variables are the PATH, INCLUDE and LIB variables so that they will contain references to the where the Microsoft compiler and libraries are installed on your system. </p>
+          <p>On Windows, you will need to download Cygwin from <a href="http://www.cygwin.com">www.cygwin.com</a>, or download a subset of the Cygwin tools sufficient to build AppWeb from the AppWeb download site at <a href="http://www.mbedthis.com/software/winTools.zip">www.mbedthis.com/software/winTools.zip</a>. You need to install these in a directory called winTools where you installed the AppWeb source code. If you have Cygwin installed, you do not need these tools. Once installed, you should add the winTools directory (or the Cygwin programs directories) to your PATH enviroment variable.</p>
+          <p>One convenient way of doing this is to modify and use the <em>.bashrc</em> file provided with the WinTools download. The .bashrc script is a login script used when creating a bash command window. This command window will be used to run the <em>make</em> program when building AppWeb. The .bashrc file includes environment variable settings for various versions of Microsoft Visual Studio and also includes references for the WinTools programs. </p>
+          <p>When building, you need to invoke <em>make</em> from within a Cygwin command window called a <em>bash window</em>. To run bash, run the shell.bat script located in the top directory of the source distribution. Or type in a DOS command window:</p>
+          <blockquote>
+            <p>shell</p>
+          </blockquote>
+          <p>This will run the following command for you which creates a bash login window . </p>
+          <blockquote>
+            <p>bash --rcfile .bashrc -i </p>
+          </blockquote>
+          <p>This will create a bash command window and read the .bashrc initialization script. You may wish to create a shortcut for this.</p>
+          <h2><a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Configuring the Build<a name="configuring" id="configuring"></a></h2>
+          <p>If
+you are using Linux or the GNU/Cygwin tools on Windows, you have the
+options of configuring and controlling the build process via the <b>configure</b>
+script. This script is similar to the Linux autoconf and libtools
+configure programs. We do not use the GNU tools as we support operating
+systems that do not easily run them (e.g. Windows). </p>
+          <p>The configure program will use the default configuration supplied
+          	in the conf/config.default file when first configuring your build.
+          	The config.default file is copied from a sample in the conf/appweb
+          	directory. You can edit the config.default file to modify the defaults
+          	to suit your requirements. Once modified, run ./configure --reset
+          	to reset your configuration to the new default values. The configure
+          	script will create and modify the build control files <b>config.make</b>,<b> config.sh </b>and <b>config.h</b>.
+		These "magic" files are included by make files, shell scripts and also by C/C++
+		source files to control the build process.</p>
+          <h3>Running Configure<a name="runningConfigure" id="runningConfigure"></a></h3>
+          <p>The
+"configure" program is the master AppWeb configuration tool. It is a
+script that will create/modify the AppWeb configuration files that
+control the build settings. You may run configure with no options to
+accept the "factory" defaults, which is a good starting point. </p>
+          <p>Configure
+will remember the settings each time it is run in a conf/config.cache
+file and it will reuse these settings if a feature or option is not
+explicitly mentioned on the next invocation.<br>
+          </p>
+          <p>To run the configure program, type:<br>
+          </p>
+          <pre>./configure</pre>
+          <p>or supply options, for example:<br>
+          </p>
+          <pre>./configure --type=RELEASE --enable-shared --os=LINUX \<br>  --disable-access-log --without-egi --with-esp</pre>
+          <h3><a name="cross" id="cross"></a>Cross Compilation</h3>
+          <p>To configure for cross compilation you need to specify the --host and --build switches. These take system architecture specifications in the form: CPU-VENDOR-OS. For example:</p>
+          <blockquote>
+            <p>i386-pc-linux</p>
+          </blockquote>
+          <p>or</p>
+          <blockquote>
+          	<p>powerpc-wrs-vxworks</p>
+       	  </blockquote>
+          <p>The host system is the target system that will eventually run AppWeb.
+          	The build system is the system being used to compile and build AppWeb. </p>
+          <p>You should specify the host (target) system using the --host switch. If you don't specify the build system using the --build switch, configure will do its best to guess your current system configuration. For example:</p>
+          <blockquote>
+            <p>./configure --host powerpc-wrs-vxworks --build pentium-pc-windows</p>
+          </blockquote>
+          <p>When cross compiling, you also need to inform configure of the names
+          	of your compiler, library archiver and other utilities and flags.
+          	The configure program listens to the settings of the AR,
+          	CC, RANLIB, CFLAGS, IFLAGS and LDFLAGS environment variables and
+          	will pass their values into the build system. </p>
+          <p>If you are using uClinux, make sure you get the uClinux patch
+          		from the AppWeb patches download site (<a href="http://www.mbedthis.com/download/appweb/patches.html">http://www.mbedthis.com/download/appweb/patches.html</a>) </p>
+          <p>The configure program will use the default values supplied in the <span style="font-style: italic;">conf/config.default</span> file when first configuring your build. After running, it will save the current configuration in the <span style="font-style: italic;">config/config.cache</span> file and will save the command line used to invoke configure in the config/<span style="font-style: italic;">config.args</span> file. You can edit the config.default file to modify the defaults to suit your requirements. Once modified, run <span style="font-style: italic;">configure --reset </span>to reparse the defaults file and update your configuration.</p>
+          
+          <p>The
+tables below describe the configuration program options and the
+variables defined in the config.make configuration files. The defaults
+below are the defaults in the supplied binary distribution.<br>
+          </p>
+          <h4><span style="font-weight: bold;"><span style="font-weight: bold;">Installation Directory Options</span></span></h4>
+          <p><span style="font-weight: bold;"><span style="font-weight: bold;"></span></span></p>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Option<br>
+                </td>
+                <td style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--prefix<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for the primary product distribution files.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--docDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for the product manual documentation.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--incDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for the include header files.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--libDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for the libraries.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--sbinDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for system binaries.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--srcDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for source code.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--webDir=PATH<br>
+                </td>
+                <td style="vertical-align: top;">Set the installation directory path for web documents (DocumentRoot).<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p><span style="font-weight: bold;"><span style="font-weight: bold;"><br>
+          </span></span><span style="font-weight: bold;">System Build Types<br>
+            </span></p>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="30%" style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Option<br>
+                </td>
+                <td width="70%" style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--build=cpu-vendor-os<br>
+                </td>
+                <td style="vertical-align: top;">Configure for building on the system specified by "cpu-vendor-os". This value is guessed by default. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--host=cpu-vendor-os<br>
+                </td>
+                <td style="vertical-align: top;">Cross-compile
+to run the product on the system specified by "cpu-vendor-os". This
+value is set by default to the value selected for the build host (see
+above). <br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p><span style="font-weight: bold;"></span></p>
+          <h4><span style="font-weight: bold;"><span style="font-weight: bold;"></span></span><span style="font-weight: bold;">Basic Configure Options</span></h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="24%" style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Option<br>
+                </td>
+                <td width="76%" style="vertical-align: top; color: rgb(255, 255, 255); background-color: rgb(192, 192, 192); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--buildNumber=NUMBER<br>
+                </td>
+                <td style="vertical-align: top;">Set the build number part of the version (the last digit of a version number, e.g. 1.0.0-X).</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--defaults=FILE<br>
+                </td>
+                <td style="vertical-align: top;">Set the file name of the defaults master file in conf/appweb. Just supply the bare filename without the .defaults extension.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--help<br>
+                </td>
+                <td style="vertical-align: top;">Display the usage help.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--name=NAME<br>
+                </td>
+                <td style="vertical-align: top;">Set the full product multi-word product name (BLD_NAME define).<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--port=PORT<br>
+                </td>
+                <td style="vertical-align: top;">Set the default HTTP port to listen on.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--product=NAME<br>
+                </td>
+                <td style="vertical-align: top;">Set the one word (no spaces) name of the product (BLD_PRODUCT).<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--quiet, -q, --silent<br>
+                </td>
+                <td style="vertical-align: top;">Run quietly.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--reset<br>
+                </td>
+                <td style="vertical-align: top;">Reset all values to their factory default settings.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--setLibVersion<br>
+                </td>
+                <td style="vertical-align: top;">Set the version number of the AppWeb shared library (Should not need to change).<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--setVersion<br>
+                </td>
+                <td style="vertical-align: top;">Set the version number of the AppWeb product.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--sslPort=PORT<br>
+                </td>
+                <td style="vertical-align: top;">Set the default SSL port to listen on.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--type=BUILD<br>
+                </td>
+                <td style="vertical-align: top;">Set the build type (DEBUG | RELEASE)<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--version=X.Y.Z<br>
+                </td>
+                <td style="vertical-align: top;">Set the product version number (Major.Minor.Patch)<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<br>
+          <h4><span style="font-weight: bold;">Feature Options<br>
+            </span><span style="font-weight: bold;"> </span></h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="28%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Option<br>
+                </td>
+                <td width="11%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Default<br>
+                </td>
+                <td width="61%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--disable-FEATURE<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Do not include the FEATURE. This is the general form to enable the features described below.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-FEATURE<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Include the FEATURE. This is the general form to enable the features described below.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-access-log<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Enable logging of HTTP requests into the AppWeb access log<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-assert<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with debug assert checking on. This will slow AppWeb somewhat.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-config<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the ability to parse the Apache-style configuration files used by AppWeb.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-cookie<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with cooking handling support.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-digest-auth<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with Digest authentication support.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-fast-malloc<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the Mbedthis fast memory allocator. About 5% faster than standard implementations.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-if-modified<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the HTTP If-Modified checking. Only return documents to the browser if they have been modified.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-keep-alive<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the HTTP Keep-Alive support.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-log<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the AppWeb trace log facility. Use the "-l" appweb switch to enable at run-time.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-modules<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the ability to load AppWeb dynamic modules.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-multi-thread<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build AppWeb multi-threaded. Use --disable-multi-thread to build single-threaded.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-rom-fs<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the ability to load web pages from a compiled web page store in ROM.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-run-as-service<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with the ability to run as a system service or daemon.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-safe-strings<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Enforce the use of safe string handling routines (ie. prevent sprintf and other unsafe routines)<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-session<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build with HTTP session support.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-shared<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build
+a shared AppWeb library and program using shared libraries. Can be used
+with --enable-static to also build static versions.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enabled-shared-libc<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Link
+with the shared version of the system libc library. This must be
+enabled if using glibc as it cannot statically link when using routines
+from the NSS library as AppWeb does. uClibc does not suffer from this
+limitation.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-squeeze<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Build in squeeze mode for a minimal memory footprint.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--enable-static<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Build
+a static AppWeb library and program using static libraries. Can also be
+used with --enable-shared to build shared versions.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<br>
+          <h4><span style="font-weight: bold;">Optional Modules and Handlers<br>
+            </span><span style="font-weight: bold;"> </span></h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="22%" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Option<br>
+                </td>
+                <td width="12%" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Default<br>
+                </td>
+                <td width="66%" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-MODULE<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Include the MODULE when building AppWeb. The MODULEs are described below.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--without-MODULE<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Do not include the MODULE when building AppWeb.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-admin<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include
+the administration handler. This is for debug purposes and creates
+security risks. It should not be loaded in a production server.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-auth<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include the authorization handler.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-c-api<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include the C API. Only necessary if creating or loading modules that use the C API.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-cgi<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include the CGI handler.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-gacompat<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Include GoAhead WebServer API compatibility. Only needed if migrating applications from the GoAhead WebServer.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-copy<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include
+support for the copy handler. This is the default document handler that
+will copy a files contents back to the client browser.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-egi<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include
+support for the Embedded Gateway Interface (EGI). This is a more modern
+replacement for CGI. In most cases the ESP handler is a better option.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-esp<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include support for the Embedded Server Pages (ESP) module.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-ssl<br>
+                </td>
+                <td style="vertical-align: top;">Enabled<br>
+                </td>
+                <td style="vertical-align: top;">Include support for the SSL protocol. You also need to define an SSL provider such as Openssl.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-upload<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Include support for the file upload handler.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-xdb<br>
+                </td>
+                <td style="vertical-align: top;">Disabled<br>
+                </td>
+                <td style="vertical-align: top;">Include support for the Xml Database. (Not yet supported).<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <span style="font-weight: bold;"><br>
+          </span>
+          <h4><span style="font-weight: bold;"> Optional Packages</span></h4>
+          <h4><span style="font-weight: bold;"> </span></h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="42%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Option<br>                </td>
+                <td width="11%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Default<br>                </td>
+                <td width="47%" style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-PACKAGE=[builtin, | module]<br>                </td>
+                <td style="vertical-align: top;"><div align="center"><br>
+                </div></td>
+                <td style="vertical-align: top;">Specify
+if a PACKAGE should be included in the build. The package may be either
+built-into the AppWeb images using static linking and/or it may be
+built as a module. Normally you should choose either builtin or module.<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--without-PACKAGE<br>                </td>
+                <td style="vertical-align: top;"><div align="center"><br>
+                </div></td>
+                <td style="vertical-align: top;">Do not include the PACKAGE in the build.<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-PACKAGE-dir=DIR<br>                </td>
+                <td style="vertical-align: top;"><div align="center"><br>
+                </div></td>
+                <td style="vertical-align: top;">Set the source directory for the PACKAGE.<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-PACKAGE-libs=LIBRARIES<br>                </td>
+                <td style="vertical-align: top;"><div align="center"><br>
+                </div></td>
+                <td style="vertical-align: top;">Set a list of libraries to use when linking with the PACKAGE.<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-php5=[builtin, | module]<br>                </td>
+                <td style="vertical-align: top;"><div align="center">Enabled<br>
+                </div></td>
+                <td style="vertical-align: top;">Build with the PHP5 package. The source distribution default is disabled.<br>                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--with-openssl=[builtin, | module]<br>                </td>
+                <td style="vertical-align: top;"><div align="center">Enabled<br>
+                </div></td>
+                <td style="vertical-align: top;">Build with the Openssl package. The source distribution default is disabled.</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h4>Environment Variables</h4>
+          These environment variables can be passed into configure to alter its behavior.<br>
+          <br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="2" cellpadding="2">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Variable<br>
+                </td>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">AR<br>
+                </td>
+                <td style="vertical-align: top;">Path to the archiver program to use to archive libraries for the target system.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">CC<br>
+                </td>
+                <td style="vertical-align: top;">Path to the C/C++ compiler to use to compile for the target system.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">CC_FOR_BUILD<br>
+                </td>
+                <td style="vertical-align: top;">Path to the C/C++ compiler to use for building bootstrap tools on the local system.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">LD<br>
+                </td>
+                <td style="vertical-align: top;">Path to the linker program to use to link objects for the target system.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">RANLIB<br>
+                </td>
+                <td style="vertical-align: top;">Path to the ranlib program to use if required.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">CFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">Compiler flags<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">IFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">Preprocessor and include flags. E.g. -Idir to specify a non-standard directory for include headers.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">LDFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">Linker flags. E.g. -Ldir to specify a non-standard directory for libraries.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">LD_LIBRARY_PATH<br>
+                </td>
+                <td style="vertical-align: top;">Path on Unix to find shared libraries to override the compiled in search path. Normally set to the AppWeb <span style="font-style: italic;">bin </span>directory
+when running appweb locally in the source tree. This variable can be
+used anytime, not just to control the configure program.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h4>Example Use</h4>
+          <pre>configure --type=DEBUG --enable-multi-thread --enable-shared \<br>  --with-php5 --with-php5-dir=/usr/src/php-4.3.6 \<br>  --with-php5-libs="php5 crypt resolv db z"</pre>
+          <h4> </h4>
+          <h4><span style="font-weight: bold;">Basic Product Configuration Variables</span></h4>
+          <p>The configure program will modify the following variables (among others) in the relevant config.* and config.h configuration files. <br>
+            <span style="font-weight: bold;"> </span></p>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td height="52" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Variable<br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Typical Value<br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_AR_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">ar (lib on windows)<br>
+                </td>
+                <td style="vertical-align: top;">Archiver / library program for target host. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_BUILD_CPU_ARCH</td>
+                <td style="vertical-align: top;">MPR_CPU_IX86</td>
+                <td style="vertical-align: top;">Build system CPU architecture. Possible values defined in mpr/mprOs.h. </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_BUILD_CPU<br />
+                </td>
+                <td style="vertical-align: top;">i586</td>
+                <td style="vertical-align: top;">Build system CPU. Possible values defined in conf/config.sub. Used in the --build switch to configure.<br />
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_BUILD_OS</td>
+                <td style="vertical-align: top;">WIN</td>
+                <td style="vertical-align: top;">Build system operating system. Used in cross-development. </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_CFLAGS_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the CFLAGS environment variable when configure was run. Used for compiling programs for the target host. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_CC_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">cc (cl on windows)<br>
+                </td>
+                <td style="vertical-align: top;">C/C++ compiler for compiling programs for the target host. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_CC_FOR_BUILD<br>
+                </td>
+                <td style="vertical-align: top;">cc (cl on windows)<br>
+                </td>
+                <td style="vertical-align: top;">C/C++ compiler to use when building bootstrap tools that are used in the build process.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_COMPANY<br>
+                </td>
+                <td style="vertical-align: top;">"Mbedthis"<br>
+                </td>
+                <td style="vertical-align: top;">Name of the company distributing the product. You may change this.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_DEBUG<br>
+                </td>
+                <td style="vertical-align: top;">1<br>
+                </td>
+                <td style="vertical-align: top;">Set to 1 if BLD_TYPE is set to DEBUG.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_DOC_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/usr/share/appweb-1.1.2<br>
+                </td>
+                <td style="vertical-align: top;">Default product documentation and samples installation prefix.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_HOST_CPU_ARCH</td>
+                <td style="vertical-align: top;">MPR_CPU_IX86</td>
+                <td style="vertical-align: top;">Target host CPU architecture. Possible values defined in mpr/mprOs.h. </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_HOST_CPU<br />
+                </td>
+                <td style="vertical-align: top;">i586</td>
+                <td style="vertical-align: top;">Target host CPU. Possible values defined in conf/config.sub. Used in the --host switch to configure.<br />
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_HOST_OS</td>
+                <td style="vertical-align: top;">LINUX</td>
+                <td style="vertical-align: top;">Target operating system. </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_HOST_UNIX<br />
+                </td>
+                <td style="vertical-align: top;">1<br />
+                </td>
+                <td style="vertical-align: top;">Set to TRUE if the target O/S is UNIX-like.<br />
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_HTTP_PORT<br />
+                </td>
+                <td style="vertical-align: top;">80<br />
+                </td>
+                <td style="vertical-align: top;">The default HTTP port to listen on.<br />
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_INC_PREFIX<br />
+                </td>
+                <td style="vertical-align: top;">/usr/include/appweb<br />
+                </td>
+                <td style="vertical-align: top;">Default product header location.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">&nbsp;</td>
+                <td style="vertical-align: top;">&nbsp;</td>
+                <td style="vertical-align: top;">&nbsp;</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_IFLAGS_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the IFLAGS environment variable when configure was run.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_LD_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">ld (link on windows)<br>
+                </td>
+                <td style="vertical-align: top;">Linker program.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_LDFLAGS_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the LDFLAGS environment variable when configure was run.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_LIB_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/usr/lib<br>
+                </td>
+                <td style="vertical-align: top;">Default product shared library location.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_NAME<br>
+                </td>
+                <td style="vertical-align: top;">"Mbedthis AppWeb"<br>
+                </td>
+                <td style="vertical-align: top;">Multiword name of the product.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_NUMBER<br>
+                </td>
+                <td style="vertical-align: top;">1<br>
+                </td>
+                <td style="vertical-align: top;">Build version number. This is the fourth digit of a version number.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/etc/appweb<br>
+                </td>
+                <td style="vertical-align: top;">Default installation directory prefix.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_PRODUCT<br>
+                </td>
+                <td style="vertical-align: top;">appweb<br>
+                </td>
+                <td style="vertical-align: top;">One word name of the product.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_RANLIB_FOR_HOST<br>
+                </td>
+                <td style="vertical-align: top;">ranlib<br>
+                </td>
+                <td style="vertical-align: top;">Program to rebuild library symbol tables for the target host.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_SBIN_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/usr/sbin<br>
+                </td>
+                <td style="vertical-align: top;">Default location for product system binaries. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_SRC_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/usr/src/appweb-1.1.2<br>
+                </td>
+                <td style="vertical-align: top;">Default product documentation and samples installation prefix.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_SSL_PORT<br>
+                </td>
+                <td style="vertical-align: top;">443<br>
+                </td>
+                <td style="vertical-align: top;">The default SSL port to listen on.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_TYPE<br>
+                </td>
+                <td style="vertical-align: top;">DEBUG<br>
+                </td>
+                <td style="vertical-align: top;">Build type. Set to RELEASE or DEBUG.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_VERSION<br>
+                </td>
+                <td style="vertical-align: top;">1.1.2<br>
+                </td>
+                <td style="vertical-align: top;">Version number of the format Major.Minor.Patch<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_WEB_PREFIX<br>
+                </td>
+                <td style="vertical-align: top;">/var/appweb/web<br>
+                </td>
+                <td style="vertical-align: top;">Default web document root. <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_NAME<br>
+                </td>
+                <td style="vertical-align: top;">0 or 1<br>
+                </td>
+                <td style="vertical-align: top;">Enable or disable the feature by NAME.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_NAME_MODULE<br>
+                </td>
+                <td style="vertical-align: top;">0 or 1<br>
+                </td>
+                <td style="vertical-align: top;">Enable the building of the module by NAME.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_NAME_MODULE_BUILTIN<br>
+                </td>
+                <td style="vertical-align: top;">0 or 1<br>
+                </td>
+                <td style="vertical-align: top;">Statically link the module into AppWeb.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_NAME_MODULE_LOADABLE<br>
+                </td>
+                <td style="vertical-align: top;">0 or 1<br>
+                </td>
+                <td style="vertical-align: top;">Build the module as a dynamically loadable module.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h2><a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Building<a name="building" id="building"></a></h2>
+          <h3> </h3>
+          <h3><a name="linuxBuild" id="linuxBuild"></a>Building from Source </h3>
+          <p>Once the build configuration is complete, you may proceed to build the source code by typing:</p>
+          <pre> make
+             	</pre>
+          <p>This will first make the build bootstrap utilities and will then
+          	create the make dependencies before compiling the code. It achieves
+          	this by automatically doing the following command sequence:</p>
+          <ol>
+            <li>
+              <p>make clean</p>
+            </li>
+            <li>
+            	<p>make compile -C bootstrap</p>
+            </li>
+            <li>
+            	<p>make depend </p>
+            </li>
+            <li>
+              <p>make compile</p>
+            </li>
+            <li>
+              <p>make install</p>
+            </li>
+            <li>
+              <p>make uninstall</p>
+            </li>
+          </ol>
+          <p>To understand more about the make system, read about the AppWeb <a href="#makeSystem">make system</a> below.</p>
+          <h2><a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif" /></a> Installing <a name="installing" id="installing"></a></h2>
+          <p>You can install by typing &quot;make install&quot; and remove via &quot;make
+          	uninstall&quot;. 
+          	If you are installing to the default system locations for AppWeb,
+          	you will 
+          	need to login as root or attain root/administration privilege before
+          	running 
+          	&quot;make install&quot;.</p>
+          <p>You can also install other AppWeb components by typing:</p>
+          <table width="100%" border="1" cellspacing="0" cellpadding="1">
+          	<tr bgcolor="#999999">
+          		<td width="19%"><span class="style3">Command</span></td>
+          		<td width="44%"><span class="style3">Description</span></td>
+          		<td width="37%"><span class="style3">Configure Location Option </span></td>
+       		</tr>
+          	<tr>
+          		<td>make install </td>
+          		<td>Install only the binaries (same as make install-binary)</td>
+          		<td>--prefix</td>
+          	</tr>
+          	<tr>
+          		<td> make install-binary</td>
+          		<td>Install minimal binary files only to run AppWeb </td>
+          		<td>--prefix --webDir </td>
+          	</tr>
+          	<tr>
+          		<td>make install-dev </td>
+          		<td>Install the product documentation </td>
+          		<td>--libDir --incDir </td>
+          	</tr>
+          	<tr>
+          		<td><p>make install-doc</p>
+   			  </td>
+          		<td>Install the product documentation </td>
+          		<td>--docDir</td>
+          	</tr>
+          	<tr>
+          		<td>make install-samples </td>
+          		<td>Install the samples </td>
+          		<td>--docDir</td>
+          	</tr>
+          	<tr>
+          		<td>make install-src </td>
+          		<td>Install the source code </td>
+          		<td>--srcDir</td>
+          	</tr>
+          	<tr>
+          		<td>make install-all </td>
+          		<td>Install everything except the source code </td>
+          		<td>ALL</td>
+          	</tr>
+       	  </table>
+          <p>          		You can remove the components by using make uninstall-ITEM.
+          	Where ITEM is one  	
+          		of the above components.</p>
+          <p>You can selectively modify installation directories by setting the
+          	appropriate configure location option. For example:</p>
+          <pre>./configure --prefix=/home/myDir --webDir=/www/html</pre>
+          <p>If you want to install to a local directory before copying the installation 
+          	to another system, you can rebase all the installation directories
+          		by setting  
+          	the ROOT_DIR environment variable. This will prepend the ROOT_DIR
+          	to all the 
+          	installation directories specified to configure. For example:</p>
+          <pre> make ROOT_DIR=/myDir install
+</pre>
+          <p>This will copy the binary installation files to /myDir. <br>
+       	  </p>
+          <h3>Building from the Source Code Repository</h3>
+          <p>To get a latest copy of AppWeb source code, you will need to have
+          	installed 
+          	the Subversion source code control client. Subversion is similar
+          	to CVS, only 
+          	better. Most major linux distributions now include the client. To
+          	download a 
+          	copy, go to:<br />
+          </p>
+          <pre> <a href="http://subversion.tigris.org/">http://subversion.tigris.org/</a></pre>
+          <p><br />
+          	Once you have the Subversion client installed, you will need to
+          	send email 
+          	to dev@mbedthis.com to receive a login name and password so you can
+          	access 
+          	the repository. Once you have these details, you can checkout a copy
+          	of the 
+          	AppWeb source code via:</p>
+          <pre> svn checkout <a href="https://www.mbedthis.com/svn/appweb/main">https://www.mbedthis.com/svn/appweb/main</a></pre>
+          <p></p>
+          <p><br>
+		  </p>
+          <h2> <a href="#top"><img width="16" height="16" class="nav" src="../../../images/upArrow.gif"></a> Key Files and Directories<a name="keyFiles" id="keyFiles"></a></h2>
+          <p>The Mbedthis AppWeb source tree contains the following key directories under the top directory.</p>
+          <table cellpadding="3" cellspacing="0" border="1" style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="font-weight: bold;" width="8%">appweb</td>
+                <td width="11%"> </td>
+                <td width="81%">The main directory for the AppWeb main programs</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">test</td>
+                <td width="81%">Integration tests for AppWeb</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">web</td>
+                <td width="81%">HTML files used by appweb</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;">appwebSamples<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;"><br>
+                </td>
+                <td style="vertical-align: top;">C++<br>
+                </td>
+                <td style="vertical-align: top;">AppWeb samples written in C++<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;"><br>
+                </td>
+                <td style="vertical-align: top;">C<br>
+                </td>
+                <td style="vertical-align: top;">AppWeb samples written in C<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%">bin</td>
+                <td width="11%"> </td>
+                <td width="81%">Directory to hold generated executables and DLLs (shared libraries). Windows will have Debug and Release subdirectories.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;"><span style="font-weight: bold;">bootstrap</span><br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Bootstrap tools used in the build process<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;">conf<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Essential configuration files and Makefile rules<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%">doc</td>
+                <td width="11%"> </td>
+                <td width="81%">AppWeb documentation</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%">ejs</td>
+                <td width="11%"> </td>
+                <td width="81%">Embedded JavaScript Engine for AppWeb</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">test</td>
+                <td width="81%">Unit tests for EJS</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%">http</td>
+                <td width="11%"> </td>
+                <td width="81%">The core HTTP web server for AppWeb</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">modules</td>
+                <td width="81%">Dynamically loadable modules and handlers. Also used for statically linked modules.</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">utils</td>
+                <td width="81%">Utility programs: httpComp, httpPassword</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%">mpr</td>
+                <td width="11%"> </td>
+                <td width="81%">The Mbedthis Portable Runtime (MPR) that provides a cross-platform executive for AppWeb to use</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">UNIX</td>
+                <td width="81%">UNIX dependent files for Linux, Solaris and other UNIX like operating systems.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">samples</td>
+                <td width="81%">MPR sample files</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">test</td>
+                <td width="81%">Unit tests for the MPR</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="8%"> </td>
+                <td width="11%">WIN</td>
+                <td width="81%">Windows dependent files</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;"><span style="font-weight: bold;">obj</span><br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Directory to hold generated objects. Windows will have Debug and Release subdirectories.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;">visualStudio<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Microsoft Visual Studio workspace files<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h3> <br>
+            Key Build Files</h3>
+          <table cellpadding="3" cellspacing="0" border="1" style="width: 100%;">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top;"><span style="font-weight: bold;">make.os</span><br>
+                </td>
+                <td style="vertical-align: top;">Key make settings for a given operating system. This is a copy of the master file conf/make.os.OS.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;">make.rules</td>
+                <td>Key make targets and rules for all make files. This is a copy of the relevant make.rules.OS file from the conf directory.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="19%">config.make</td>
+                <td width="81%">Build configuration file created by <b>configure</b> and used by Make.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;">config.sh<br>
+                </td>
+                <td style="vertical-align: top;">Build configuration file created by configure and used by shell scripts including the <span style="font-weight: bold;">bld</span> program.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold;">config.h<br>
+                </td>
+                <td style="vertical-align: top;">Build header created by configure and included in all source files.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="19%">configure</td>
+                <td width="81%">Build configuration program.</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold;" width="19%">bin/bld</td>
+                <td width="81%">Program to create executables and libraries (like GNU/libtool).</td>
+              </tr>
+              
+              <tr>
+                <td style="vertical-align: top;"><span style="font-weight: bold;">conf/config.defaults.OS</span><br>
+                </td>
+                <td style="vertical-align: top;">Configuration
+defaults for AppWeb for each operating system. Configure uses these
+defaults when first run and when the --reset switch is used to reset to
+factory defaults.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;"><span style="font-weight: bold;">conf/config.cache</span><br>
+                </td>
+                <td style="vertical-align: top;">Cache of the current settings in effect for configure. Configure will reuse the last settings as a base.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h2><a href="#top" name="makeSystem" id="makeSystem"><img alt="top" style="border: 0px solid ; height: 16px; width: 16px;" class="nav" src="../../../images/upArrow.gif"></a>The Make System</h2>
+AppWeb uses a  customized build system using the standard GNU make
+system. Its purpose is to allow fine-grained control over the features
+that are enabled in the product and what modules are included, to
+minimize the code required in each makefile and to be cross-platform.
+The make system will run on any system supporting the GNU make and GNU
+bash shell programs. For the Windows environment, the build system
+relies on the Cygwin Unix emulation layer supplied in the Win Tools download available with the AppWeb download.<br>
+          <br>
+The make system supports recursive compilation and building where each
+directory contains a Makefile. Typically, each makefile includes a
+dependency file called <span style="font-style: italic;">make.dep</span>.
+This file is contains target dependencies and also references the
+primary configuration file (config.make) generated by the configure
+program. It also includes the make rules that are defined in the <span style="font-style: italic;">make.rules</span>
+file which resides in the top directory of the source tree and make.os
+which contains per O/S make variables and transition rules. <br>
+          <h4><span style="font-weight: bold;">Standard Make Targets</span></h4>
+          The make system supports the following targets and all except <span style="font-style: italic;">build</span>,
+operate recursively applying the same target to all defined
+subdirectories. The directories recursed are specified in the PRE_DIRS
+and POST_DIRS make variables. <br>
+          <span style="font-weight: bold;"></span><br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Target<br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">build<br>
+                </td>
+                <td style="vertical-align: top;">Perform a make clean compile test<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">clean<br>
+                </td>
+                <td style="vertical-align: top;">Remove intermediate and generated targets<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">compile<br>
+                </td>
+                <td style="vertical-align: top;">Compile source files<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">depend<br>
+                </td>
+                <td style="vertical-align: top;">Create the make.dep dependency file<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">romfs<br>
+                </td>
+                <td style="vertical-align: top;">Create a rom file system image of the distribution. Used in the appweb directory. Used by uClinux.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">package<br>
+                </td>
+                <td style="vertical-align: top;">Create an installable distribution package <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">test<br>
+                </td>
+                <td style="vertical-align: top;">Run unit tests<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          An AppWeb Makefile looks similar to this example:<br>
+          <pre>COMPILE         := *.cpp<br>COMPILE_SHARED  := yes<br>POST_DIRS       := test<br> <br>include     	make.dep<br> <br>compileExtra: myLib$(BLD_ARCHIVE) myProg$(BLD_EXE)<br> <br>myLib$(BLD_ARCHIVE): $(FILES)<br>    @bld --static --library myLib$(BLD_ARCHIVE) file$(BLD_OBJ)<br> <br>myProg$(BLD_EXE): $(FILES)<br>    @bld --executable myProg$(BLD_EXE) file$(BLD_OBJ)<br> <br></pre>
+          <br>
+The top section defines environment variables that control make for this
+and subdirectories. The following table describes the possible make
+variables supported by AppWeb.<br>
+          <h4>User Make Variables</h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Variable<br>
+                </td>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Typical Value<br>
+                </td>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">MAKE_CFLAGS<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Any local compiler flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">COMPILE<br>
+                </td>
+                <td style="vertical-align: top;">*.cpp<br>
+                </td>
+                <td style="vertical-align: top;">List of files to be compiled. Can contain wild cards.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">COMPILE_SHARED<br>
+                </td>
+                <td style="vertical-align: top;">yes<br>
+                </td>
+                <td style="vertical-align: top;">True
+/ false value if compiled objects must be sharable. On some systems,
+this implies position independent code. This only has effect if
+BLD_FEATURE_SHARED is true. See "configure --enable-shared" <br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">EXPORT_OBJECTS<br>
+                </td>
+                <td style="vertical-align: top;">yes<br>
+                </td>
+                <td style="vertical-align: top;">Export objects into a common object directory, typically BLD_TOP/obj.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">MAKE_IFLAGS<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Any local include flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">MAKE_LDFLAGS<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">Any local link flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">PRE_DIRS<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">List of directories to be recursed before making the current directory.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">POST_DIRS<br>
+                </td>
+                <td style="vertical-align: top;"><br>
+                </td>
+                <td style="vertical-align: top;">List of directories to be recursed after making the current directory.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+The make.dep file is generated by invoking "make depend" which will run
+the genDepend program to parse the source files and generate the file
+dependency lists. For the first time build, the command <span style="font-style: italic;">makedep </span>will generate stub make.dep files. A typical make.dep file looks like the following:<br>
+          <br>
+          <pre>all: compile<br> <br>BLD_TOP := ../..<br> <br>#<br>#   Read the build configuration settings and make <br>#   variable definitions.<br>#<br>include $(BLD_TOP)/config.make<br> <br>FILES = \<br>    $(BLD_OBJ_DIR)/mprSample$(BLD_OBJ) \<br>    $(BLD_OBJ_DIR)/mprWinSample$(BLD_OBJ)<br> <br>$(BLD_OBJ_DIR)/mprSample$(BLD_OBJ):  \<br>    ../../mpr/mpr.h \<br>    ../../config.h \<br>    ../../mpr/mprOs.h \<br>    ./mprSample.h<br> <br>$(BLD_OBJ_DIR)/mprWinSample$(BLD_OBJ):  \<br>    ../../mpr/mpr.h \<br>    ../../mpr/mprOs.h \<br>    ./mprSample.h<br> <br>#<br>#   Read the Makefile rules<br>#<br>include $(BLD_TOP)/make.rules<br>include $(BLD_TOP)/make.os</pre>
+          <br>
+The BLD_TOP variable defines the top of the source tree and the FILES
+variable lists all files to be compiled. Two files are included. The
+first, <span style="font-style: italic;">config.make</span>, is generated by the configure program and contains the configuration settings for this build. The <span style="font-style: italic;">make.rules </span>file
+contains the AppWeb make rules for this operating system. You should
+not hand edit the make.dep files. All changes should go into the
+Makefile.<br>
+          <h4>Supplimentary Make Variables</h4>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Variable<br>
+                </td>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_TOP<br>
+                </td>
+                <td style="vertical-align: top;">Top level directory in the source tree.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BUILD_CHECK<br>
+                </td>
+                <td style="vertical-align: top;">Used only by the top level makefile to check that the environment has been correctly setup.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">FILES<br>
+                </td>
+                <td style="vertical-align: top;">List
+of target objects to build. This is created by the genDepnd program
+which is run when "make depend" is invoked. It consults the variable
+COMPILE and creates the FILES list.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h4>Config.make Variables</h4>The following variables are used by <span style="font-style: italic;">config.make</span>.
+To ensure the entire source tree is relocatable, all paths are always
+paths relative to the top of the source tree. Don't use absolute paths.<br>
+          <br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Variable<br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); text-align: center;"><span style="color: rgb(255, 255, 255);">Ty</span><span style="font-weight: bold; color: rgb(255, 255, 255);">pical Value (Linux)</span><br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_ARCHIVE<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">.a<br>
+                </td>
+                <td style="vertical-align: top;">File extension for static libraries.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_BIN_DIR<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/bin/Debug<br>
+                </td>
+                <td style="vertical-align: top;">Directory to hold executable and libraries.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_CFLAGS<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the CFLAGS environment variable when configure was run.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_CLASS<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">.class<br>
+                </td>
+                <td style="vertical-align: top;">File extension for Java classes.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_EXE<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">(.exe on Windows)<br>
+                </td>
+                <td style="vertical-align: top;">File extension for executables.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_EXP_OBJ_DIR<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/obj<br>
+                </td>
+                <td style="vertical-align: top;">Common directory to hold exported objects.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_IFLAGS<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the IFLAGS environment variable when configure was run.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_INC_DIR<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/include<br>
+                </td>
+                <td style="vertical-align: top;">Include directory.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_LDFLAGS<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">""<br>
+                </td>
+                <td style="vertical-align: top;">The value of the LDFLAGS environment variable when configure was run.</td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_LIB<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/bin<br>
+                </td>
+                <td style="vertical-align: top;">Convenience variable set to either "Static${BLD_ARCHIVE}" or ${BLD_SHOBJ}<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_OBJ<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">.o<br>
+                </td>
+                <td style="vertical-align: top;">File extension for objects.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_OBJ_DIR<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/obj<br>
+                </td>
+                <td style="vertical-align: top;">Directory to hold objects. May be "." if EXPORT_OBJECTS is not defined.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_PIOBJ<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">.lo<br>
+                </td>
+                <td style="vertical-align: top;">File extension for position independent objects.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_SHLIB<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">(.lib on windows)<br>
+                </td>
+                <td style="vertical-align: top;">Shared library extension when shared objects and shared libraries are separate files.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_SHOBJ<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">.so<br>
+                </td>
+                <td style="vertical-align: top;">File extension for shared objects.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_TOOLS_DIR<br>
+                </td>
+                <td style="vertical-align: top; text-align: center;">${BLD_TOP}/bin<br>
+                </td>
+                <td style="vertical-align: top;">Directory to hold build tools.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h3><a name="bld" id="bld"></a>The bld Program</h3>
+The bld program is used to create executables, static libraries and
+shared libraries. It provides a cross-platform interface that requires
+minimal typing in makefiles and is controlled by the per-O/S make.rules
+make include file.<br>
+          <br>
+          These make variabls are defined in the make.rules file and are passed to the <span style="font-weight: bold;">bld </span>program.<br>
+          <br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Variable<br>
+                </td>
+                <td style="vertical-align: top; font-weight: bold; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255);">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LD_OPT<br>
+                </td>
+                <td style="vertical-align: top;">Set to either _LD_OPT_DEBUG or _LD_OPT_RELEASE depending whether the build is Debug or Release.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LD_OPT_DEBUG<br>
+                </td>
+                <td style="vertical-align: top;">Link options when building a Debug version.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LD_OPT_RELEASE<br>
+                </td>
+                <td style="vertical-align: top;">Link options when building a Release version.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LD_DLL<br>
+                </td>
+                <td style="vertical-align: top;">Link flag when building a DLL (shared library).<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_CC_OPT<br>
+                </td>
+                <td style="vertical-align: top;">Set to either _CC_OPT_DEBUG or _CC_OPT_RELEASE depending whether the build is Debug or Release. </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_CC_OPT_DEBUG<br>
+                </td>
+                <td style="vertical-align: top;">Compiler options when building a Debug version.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_CC_OPT_RELEASE<br>
+                </td>
+                <td style="vertical-align: top;">Compiler options when building a Release version.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_CFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">General compiler flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_IFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">General compiler include flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LDFLAGS<br>
+                </td>
+                <td style="vertical-align: top;">General linker flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_NATIVE_LIBS<br>
+                </td>
+                <td style="vertical-align: top;">Standard libraries to use when building bootstrap tools that must be compiled natively.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_WARNING<br>
+                </td>
+                <td style="vertical-align: top;">Compiler warning control flags.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_SHARED_LIBS<br>
+                </td>
+                <td style="vertical-align: top;">Standard shared libraries to use in every shared link.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_STATIC_LIBS<br>
+                </td>
+                <td style="vertical-align: top;">Standard static libraries to use in every static link.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">_LDPATH<br>
+                </td>
+                <td style="vertical-align: top;">Path to directory containing libraries.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <h4>Bld Program Switches</h4>
+          In addition to the environment variables defined in the config.sh file, the <span style="font-weight: bold;">bld</span> program takes the following command line switches:<br>
+          <br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td width="31%" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Switch<br>
+                </td>
+                <td width="69%" style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--debug<br>
+                </td>
+                <td style="vertical-align: top;">Not implemented<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--dry-run<br>
+                </td>
+                <td style="vertical-align: top;">Trace commands but do not execute<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--entry NAME<br>
+                </td>
+                <td style="vertical-align: top;">Shared library entry point<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--executable NAME<br>
+                </td>
+                <td style="vertical-align: top;">Name of executable to build<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--graphical<br>
+                </td>
+                <td style="vertical-align: top;">Create a windowed program instead of a console program (Windows only)<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--help<br>
+                </td>
+                <td style="vertical-align: top;">Print usage information<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--library NAME<br>
+                </td>
+                <td style="vertical-align: top;">Name of library to link<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--libs "LIBRARIES ..."<br>
+                </td>
+                <td style="vertical-align: top;">Extra libraries to link with<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--libraryPath "PATHS..."<br>
+                </td>
+                <td style="vertical-align: top;">Paths to search for the libraries<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--native<br>
+                </td>
+                <td style="vertical-align: top;">Build for local execution not for execution on the target system<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--objects "OBJECTS ..."<br>
+                </td>
+                <td style="vertical-align: top;">String containing list of objects to link<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--objectsList FILE<br>
+                </td>
+                <td style="vertical-align: top;">File containing list of objects to link<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--objectsDir PATH<br>
+                </td>
+                <td style="vertical-align: top;">Directory to find / store objects<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--quiet<br>
+                </td>
+                <td style="vertical-align: top;">Run quietly without tracing actions to stdout<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--preferShared<br>
+                </td>
+                <td style="vertical-align: top;">Link with shared libraries by preference<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--preferStatic<br>
+                </td>
+                <td style="vertical-align: top;">Link with static libraries by preference<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--resources FILE<br>
+                </td>
+                <td style="vertical-align: top;">Resource file (menus and icons for Windows)<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--rpath PATH<br>
+                </td>
+                <td style="vertical-align: top;">Specify the executable run-time library search path (Unix only)<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--shared<br>
+                </td>
+                <td style="vertical-align: top;">Only make a shared library<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--soname<br>
+                </td>
+                <td style="vertical-align: top;">Create a versioned shared library with a SONAME<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--static<br>
+                </td>
+                <td style="vertical-align: top;">Only make a static library<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--smartLibs "LIBRARIES ..."<br>
+                </td>
+                <td style="vertical-align: top;">Use
+shared or static libraries intelligently depending on --preferShared,
+--preferStatic, BLD_FEATURE_STATIC and BLD_FEATURE_SHARED<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">--version<br>
+                </td>
+                <td style="vertical-align: top;">Print the bld version number.<br>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          The <span style="font-weight: bold;">bld</span> program also uses the following environment variables:<br>
+          <br>
+          <table style="text-align: left; width: 100%;" border="1" cellspacing="0" cellpadding="3">
+            <tbody>
+              <tr>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Variable<br>
+                </td>
+                <td style="vertical-align: top; background-color: rgb(192, 192, 192); color: rgb(255, 255, 255); font-weight: bold;">Description<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_TOP<br>
+                </td>
+                <td style="vertical-align: top;">Top of the source tree. This is automatically set by the genDepend program in the make.dep files.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_SHARED<br>
+                </td>
+                <td style="vertical-align: top;">Build shared libraries where relevant. This is defined by the configure --enable-shared switch.<br>
+                </td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top;">BLD_FEATURE_STATIC<br>
+                </td>
+                <td style="vertical-align: top;">Build static libraries where relevant. This is defined by the configure --enable-static switch.</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+        </div></td>
+      <td class="contentSep"><br>
+      </td>
+      <td class="contentSideBar"><div class="linkSection">
+          <h2>Quick Nav</h2>
+          <a href="#overview">Overview</a><br>
+          <a href="#supportedPlatforms">Supported Platforms</a><br>
+          <a href="#gettingStarted">Setting up the Environment<br>
+          </a><a href="#configuring">Configuring the Build</a><br>
+          <a href="#building">Building</a><br />
+          <a href="#installing">Installing</a>          <br>
+          <a href="#keyFiles">Key File and Directories</a><br>
+          <a href="#makeSystem">Make System</a><br>
+          <h2>See Also</h2>
+          <a href="../../../product/newFeatures.html">New Features</a><br>
+          <a href="../../../product/releaseNotes.html">Release Notes</a><br>
+          <a href="../../../product/install/linux.html">Installing on Linux</a><br>
+          <a href="../../../product/install/windows.html">Installing on Windows</a><br>
+          <a href="porting.html">Porting Guide</a> </div></td>
+    </tr>
+  </tbody>
+</table>
+<!-- BeginDsi "dsi/terms.html" -->
+<p class="terms"> 
+	<a href="../../../product/copyright.html"
+		>&copy; Mbedthis Software LLC, 2003-2006. All 
+		rights reserved. Mbedthis is a trademark of Mbedthis Software LLC.</a>
+</p>
+<!-- EndDsi -->
+
+</body></html>

@@ -1,0 +1,1 @@
+../../../../../../local/xenomai/kbuild/ksrc/skins/posix/cond_attr.c

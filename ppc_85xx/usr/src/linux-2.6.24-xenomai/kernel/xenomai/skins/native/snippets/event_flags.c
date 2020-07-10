@@ -1,0 +1,1 @@
+../../../../../../../local/xenomai/kbuild/ksrc/skins/native/snippets/event_flags.c

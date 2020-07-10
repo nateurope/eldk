@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenSSL
+Description: Secure Sockets Layer and cryptography libraries and tools
+Version: 0.9.8b
+Requires: 
+Libs: -L${libdir} -lssl -lcrypto -L/opt/eldk/build/ppc-2008-04-01/work/ppc_85xx/usr/lib -L/opt/eldk/build/ppc-2008-04-01/work/usr/src/denx/BUILD/openssl-0.9.8b -ldl -lz
+Cflags: -I${includedir} -I/usr/kerberos/include

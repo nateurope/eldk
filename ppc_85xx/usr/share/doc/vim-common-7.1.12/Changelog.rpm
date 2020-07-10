@@ -1,0 +1,51 @@
+* Thu Mar 09 2006 Karsten Hopp <karsten@redhat.de> 6.4.007-4
+- fix configure check for python (#184478)
+
+* Thu Mar 09 2006 Karsten Hopp <karsten@redhat.de> 6.4.007-3
+- rebuild
+
+* Mon Feb 20 2006 Karsten Hopp <karsten@redhat.de> 6.4.007-2
+- gtk-update-icon-cache --ignore-theme-index 
+  (avoids %%post failures when hicolor-icon-theme isn't installed)
+
+* Wed Feb 15 2006 Karsten Hopp <karsten@redhat.de> 6.4.007-1
+- fix vim.csh script (#180429)
+- patchlevel 7
+
+* Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 1:6.4.006-1.2
+- bump again for double-long bug on ppc(64)
+
+* Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 1:6.4.006-1.1
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
+* Mon Jan 02 2006 Karsten Hopp <karsten@redhat.de> 6.4.006-1
+- patchlevel 6, fixes bz# 175048
+
+* Tue Dec 20 2005 Karsten Hopp <karsten@redhat.de> 6.4.004-2
+- disable templates when editing new .c / .h files (#175878)
+
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
+* Thu Dec 08 2005 Karsten Hopp <karsten@redhat.de> 6.4.004-1
+- fix fstab syntax file (#174735)
+- patchlevel 4
+
+* Wed Nov 30 2005 Karsten Hopp <karsten@redhat.de> 6.4.003-1
+- patchlevel 3
+- remove withgui switch as we include vim-X11 in all our distributions now 
+  (#174271)
+
+* Fri Nov 25 2005 Karsten Hopp <karsten@redhat.de> 6.4.000-4
+- enable tmpfile patch 
+
+* Thu Oct 27 2005 Karsten Hopp <karsten@redhat.de> 6.4.000-3
+- test build
+
+* Tue Oct 25 2005 Karsten Hopp <karsten@redhat.de> 6.4.000-2
+- use %%{_sysconfdir} (#171556)
+- add syntax highlighting rule for %%check (Ralf Ertzinger, #165277)
+
+* Mon Oct 17 2005 Karsten Hopp <karsten@redhat.de> 6.4.000-1
+- vim-6.4 patchlevel 0
+

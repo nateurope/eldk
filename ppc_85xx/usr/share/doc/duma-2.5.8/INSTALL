@@ -1,0 +1,58 @@
+
+This documents describes if and how the library is installed on your system.
+
+I. Linux/Unix environments (including Cygwin and MinGW):
+
+  Configure the options by editing the Makefile.
+    Read carefully the description of options at top of the Makefile.
+    Take care for the special OS/OSTYPE depending sections.
+    Especially if you are going to use the LD_PRELOAD mechanism.
+
+  Call GNU make often called 'gmake' for building the library.
+  GNU make is called 'mingw32-make' for MinGW.
+
+  Add option 'OSTYPE=msys' when calling make for MinGW.
+  Add option 'OSTYPE=cygwin' when calling make for Cygwin.
+  Add option 'OS=osx' when calling make for MacOS X or Darwin.
+  Add option 'OS=freebsd' when calling make for FreeBSD.
+  Add option 'OS=solaris' when calling make for Solaris.
+
+  Get system user with 'su', if you are going to install into
+    system directories
+
+  Call 'gmake install' for installation in system directories.
+
+  Note: You need not install DUMA. Setting system PATH for duma.sh
+    or INCLUDE/LIBS variables after compilation may suffice, too.
+    The (outdated) manual page needs installation.
+
+
+II. Windows 2000/XP, Visual Studio Environments:
+
+  Installation is not necessary. Just set INCLUDE and LIBS directories
+  in your environment or project.
+
+III. Solaris Environment:
+
+  Add the location(s) of the GNU Toolchain (gmake, gcc, ar, ..) to the PATH:
+  On my Solaris 10 installation with the Companion CD it is:
+    /opt/sfw/bin and /opt/sfw/lib/bin
+
+  Also notice that the Makefile has to contain some special settings so that
+  the compiled executable can dynmically find and link to libstdc++. Have a
+  look at the solaris section in DUMA's Makefile.
+
+IV. FreeBSD Environment:
+
+  At least on my FreeBSD-6.2 installation i have to set the shell environment
+  variable with 'export DUMA_DISABLE_BANNER=1' before running any programs
+  linked with libduma.a. There seems to be an initialization problem with
+  the pthreads library.
+
+
+Hayati Ayguen
+
+15 September 2005,
+updated 31 July 2007
+updated 11 August 2007
+updated 18 August 2007

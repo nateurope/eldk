@@ -1,0 +1,1 @@
+irqloop:posix+rtdm+irqbench:!/usr/local/xenomai/bin/irqloop;popall:control_c

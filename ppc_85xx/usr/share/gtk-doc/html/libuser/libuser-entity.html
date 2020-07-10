@@ -1,0 +1,1144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>entity</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="index.html" title="libuser Reference Manual">
+<link rel="up" href="ch01.html" title="libuser">
+<link rel="prev" href="libuser-value.html" title="value">
+<link rel="next" href="libuser-error.html" title="error">
+<meta name="generator" content="GTK-Doc V1.7 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="libuser">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libuser-value.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libuser Reference Manual</th>
+<td><a accesskey="n" href="libuser-error.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2613893" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2614766" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libuser-entity"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2613893"></a><span class="refentrytitle">entity</span>
+</h2>
+<p>entity &#8212; 
+Functions for manipulating lu_ent structures.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+#define     <a href="libuser-entity.html#LU-USERNAME:CAPS">LU_USERNAME</a>
+#define     <a href="libuser-entity.html#LU-USERPASSWORD:CAPS">LU_USERPASSWORD</a>
+#define     <a href="libuser-entity.html#LU-UIDNUMBER:CAPS">LU_UIDNUMBER</a>
+#define     <a href="libuser-entity.html#LU-GIDNUMBER:CAPS">LU_GIDNUMBER</a>
+#define     <a href="libuser-entity.html#LU-GECOS:CAPS">LU_GECOS</a>
+#define     <a href="libuser-entity.html#LU-HOMEDIRECTORY:CAPS">LU_HOMEDIRECTORY</a>
+#define     <a href="libuser-entity.html#LU-LOGINSHELL:CAPS">LU_LOGINSHELL</a>
+#define     <a href="libuser-entity.html#LU-GROUPNAME:CAPS">LU_GROUPNAME</a>
+#define     <a href="libuser-entity.html#LU-GROUPPASSWORD:CAPS">LU_GROUPPASSWORD</a>
+#define     <a href="libuser-entity.html#LU-MEMBERNAME:CAPS">LU_MEMBERNAME</a>
+#define     <a href="libuser-entity.html#LU-ADMINISTRATORNAME:CAPS">LU_ADMINISTRATORNAME</a>
+#define     <a href="libuser-entity.html#LU-SHADOWNAME:CAPS">LU_SHADOWNAME</a>
+#define     <a href="libuser-entity.html#LU-SHADOWPASSWORD:CAPS">LU_SHADOWPASSWORD</a>
+#define     <a href="libuser-entity.html#LU-SHADOWLASTCHANGE:CAPS">LU_SHADOWLASTCHANGE</a>
+#define     <a href="libuser-entity.html#LU-SHADOWMIN:CAPS">LU_SHADOWMIN</a>
+#define     <a href="libuser-entity.html#LU-SHADOWMAX:CAPS">LU_SHADOWMAX</a>
+#define     <a href="libuser-entity.html#LU-SHADOWWARNING:CAPS">LU_SHADOWWARNING</a>
+#define     <a href="libuser-entity.html#LU-SHADOWINACTIVE:CAPS">LU_SHADOWINACTIVE</a>
+#define     <a href="libuser-entity.html#LU-SHADOWEXPIRE:CAPS">LU_SHADOWEXPIRE</a>
+#define     <a href="libuser-entity.html#LU-SHADOWFLAG:CAPS">LU_SHADOWFLAG</a>
+#define     <a href="libuser-entity.html#LU-COMMONNAME:CAPS">LU_COMMONNAME</a>
+#define     <a href="libuser-entity.html#LU-GIVENNAME:CAPS">LU_GIVENNAME</a>
+#define     <a href="libuser-entity.html#LU-SN:CAPS">LU_SN</a>
+#define     <a href="libuser-entity.html#LU-ROOMNUMBER:CAPS">LU_ROOMNUMBER</a>
+#define     <a href="libuser-entity.html#LU-TELEPHONENUMBER:CAPS">LU_TELEPHONENUMBER</a>
+#define     <a href="libuser-entity.html#LU-HOMEPHONE:CAPS">LU_HOMEPHONE</a>
+#define     <a href="libuser-entity.html#LU-EMAIL:CAPS">LU_EMAIL</a>
+lu_ent_t*   <a href="libuser-entity.html#lu-ent-new">lu_ent_new</a>                      (void);
+void        <a href="libuser-entity.html#lu-ent-free">lu_ent_free</a>                     (lu_ent_t *ent);
+void        <a href="libuser-entity.html#lu-ent-copy">lu_ent_copy</a>                     (lu_ent_t *source,
+                                             lu_ent_t *dest);
+void        <a href="libuser-entity.html#lu-ent-commit">lu_ent_commit</a>                   (lu_ent_t *ent);
+void        <a href="libuser-entity.html#lu-ent-revert">lu_ent_revert</a>                   (lu_ent_t *ent);
+void        <a href="libuser-entity.html#lu-ent-add">lu_ent_add</a>                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+void        <a href="libuser-entity.html#lu-ent-add-current">lu_ent_add_current</a>              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+void        <a href="libuser-entity.html#lu-ent-clear">lu_ent_clear</a>                    (lu_ent_t *ent,
+                                             const char *attr);
+void        <a href="libuser-entity.html#lu-ent-clear-all">lu_ent_clear_all</a>                (lu_ent_t *ent);
+void        <a href="libuser-entity.html#lu-ent-clear-all-current">lu_ent_clear_all_current</a>        (lu_ent_t *ent);
+void        <a href="libuser-entity.html#lu-ent-clear-current">lu_ent_clear_current</a>            (lu_ent_t *ent,
+                                             const char *attr);
+void        <a href="libuser-entity.html#lu-ent-del">lu_ent_del</a>                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+void        <a href="libuser-entity.html#lu-ent-del-current">lu_ent_del_current</a>              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);
+void        <a href="libuser-entity.html#lu-ent-dump">lu_ent_dump</a>                     (lu_ent_t *ent,
+                                             FILE *fp);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-entity.html#lu-ent-get">lu_ent_get</a>                     (lu_ent_t *ent,
+                                             const char *attribute);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*      <a href="libuser-entity.html#lu-ent-get-attributes">lu_ent_get_attributes</a>           (lu_ent_t *ent);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*      <a href="libuser-entity.html#lu-ent-get-attributes-current">lu_ent_get_attributes_current</a>   (lu_ent_t *ent);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-entity.html#lu-ent-get-current">lu_ent_get_current</a>             (lu_ent_t *ent,
+                                             const char *attribute);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-entity.html#lu-ent-has">lu_ent_has</a>                      (lu_ent_t *ent,
+                                             const char *attribute);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-entity.html#lu-ent-has-current">lu_ent_has_current</a>              (lu_ent_t *ent,
+                                             const char *attribute);
+void        <a href="libuser-entity.html#lu-ent-set">lu_ent_set</a>                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a> *values);
+void        <a href="libuser-entity.html#lu-ent-set-current">lu_ent_set_current</a>              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a> *values);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2614766"></a><h2>Description</h2>
+<p>
+entity.h declares functions for manipulating lu_ent structures, which are used
+by libuser, its modules, and applications to hold data about a particular
+user or group account.
+</p>
+<p>
+Each struct lu_ent contains two sets of attributes: pending and current.
+The pending attributes are modified by default, the current attributes
+are modified by functions ending with _current.
+</p>
+<p>
+Each attribute contains a list of values.  The list is never empty; removing
+the last entry from the list removes the list completely.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2614796"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2614806"></a><h3>
+<a name="LU-USERNAME:CAPS"></a>LU_USERNAME</h3>
+<a class="indexterm" name="id2614819"></a><pre class="programlisting">#define LU_USERNAME		"pw_name"
+</pre>
+<p>
+User name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2614844"></a><h3>
+<a name="LU-USERPASSWORD:CAPS"></a>LU_USERPASSWORD</h3>
+<a class="indexterm" name="id2614858"></a><pre class="programlisting">#define LU_USERPASSWORD		"pw_passwd"
+</pre>
+<p>
+User password, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.  If shadow passwords are used, this is the
+placeholder password.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2614885"></a><h3>
+<a name="LU-UIDNUMBER:CAPS"></a>LU_UIDNUMBER</h3>
+<a class="indexterm" name="id2614897"></a><pre class="programlisting">#define LU_UIDNUMBER		"pw_uid"
+</pre>
+<p>
+User ID, an <span class="type">id_t</span>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2614920"></a><h3>
+<a name="LU-GIDNUMBER:CAPS"></a>LU_GIDNUMBER</h3>
+<a class="indexterm" name="id2614933"></a><pre class="programlisting">#define LU_GIDNUMBER		"pw_gid"
+</pre>
+<p>
+Group ID, an <span class="type">id_t</span>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2614957"></a><h3>
+<a name="LU-GECOS:CAPS"></a>LU_GECOS</h3>
+<a class="indexterm" name="id2614969"></a><pre class="programlisting">#define LU_GECOS		"pw_gecos"
+</pre>
+<p>
+Usually user's real name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.  Often contains user's real name,
+office name, office phone, home phone, separated by commas.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2614997"></a><h3>
+<a name="LU-HOMEDIRECTORY:CAPS"></a>LU_HOMEDIRECTORY</h3>
+<a class="indexterm" name="id2615010"></a><pre class="programlisting">#define LU_HOMEDIRECTORY	"pw_dir"
+</pre>
+<p>
+User's home directory, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615036"></a><h3>
+<a name="LU-LOGINSHELL:CAPS"></a>LU_LOGINSHELL</h3>
+<a class="indexterm" name="id2615048"></a><pre class="programlisting">#define LU_LOGINSHELL		"pw_shell"
+</pre>
+<p>
+User's login shell, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615075"></a><h3>
+<a name="LU-GROUPNAME:CAPS"></a>LU_GROUPNAME</h3>
+<a class="indexterm" name="id2615087"></a><pre class="programlisting">#define LU_GROUPNAME		"gr_name"
+</pre>
+<p>
+Group name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615113"></a><h3>
+<a name="LU-GROUPPASSWORD:CAPS"></a>LU_GROUPPASSWORD</h3>
+<a class="indexterm" name="id2615126"></a><pre class="programlisting">#define LU_GROUPPASSWORD	"gr_passwd"
+</pre>
+<p>
+Group password, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615153"></a><h3>
+<a name="LU-MEMBERNAME:CAPS"></a>LU_MEMBERNAME</h3>
+<a class="indexterm" name="id2615164"></a><pre class="programlisting">#define LU_MEMBERNAME		"gr_mem"
+</pre>
+<p>
+Group member names; each member is represented by a separate <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>
+value.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615192"></a><h3>
+<a name="LU-ADMINISTRATORNAME:CAPS"></a>LU_ADMINISTRATORNAME</h3>
+<a class="indexterm" name="id2615205"></a><pre class="programlisting">#define LU_ADMINISTRATORNAME	"gr_adm"
+</pre>
+<p>
+Group administrator names; each administrator is represented by a separate
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a> value.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615233"></a><h3>
+<a name="LU-SHADOWNAME:CAPS"></a>LU_SHADOWNAME</h3>
+<a class="indexterm" name="id2615246"></a><pre class="programlisting">#define LU_SHADOWNAME		LU_USERNAME
+</pre>
+<p>
+User name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.  Note that <a href="libuser-entity.html#LU-SHADOWNAME:CAPS"><code class="literal">LU_SHADOWNAME</code></a> is not distinct from
+<a href="libuser-entity.html#LU-USERNAME:CAPS"><code class="literal">LU_USERNAME</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615294"></a><h3>
+<a name="LU-SHADOWPASSWORD:CAPS"></a>LU_SHADOWPASSWORD</h3>
+<a class="indexterm" name="id2615307"></a><pre class="programlisting">#define LU_SHADOWPASSWORD	"sp_pwdp"
+</pre>
+<p>
+User password in the shadow file, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615333"></a><h3>
+<a name="LU-SHADOWLASTCHANGE:CAPS"></a>LU_SHADOWLASTCHANGE</h3>
+<a class="indexterm" name="id2615346"></a><pre class="programlisting">#define LU_SHADOWLASTCHANGE	"sp_lstchg"
+</pre>
+<p>
+The number of days since the epoch to the day when the password was last
+changed, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615374"></a><h3>
+<a name="LU-SHADOWMIN:CAPS"></a>LU_SHADOWMIN</h3>
+<a class="indexterm" name="id2615385"></a><pre class="programlisting">#define LU_SHADOWMIN		"sp_min"
+</pre>
+<p>
+Minimum password lifetime in days before it can be changed, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615412"></a><h3>
+<a name="LU-SHADOWMAX:CAPS"></a>LU_SHADOWMAX</h3>
+<a class="indexterm" name="id2615424"></a><pre class="programlisting">#define LU_SHADOWMAX		"sp_max"
+</pre>
+<p>
+Maximum password lifetime in days before it must be changed, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615452"></a><h3>
+<a name="LU-SHADOWWARNING:CAPS"></a>LU_SHADOWWARNING</h3>
+<a class="indexterm" name="id2615464"></a><pre class="programlisting">#define LU_SHADOWWARNING	"sp_warn"
+</pre>
+<p>
+Days before the password lifetime expires when the user should start to be
+warned, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615492"></a><h3>
+<a name="LU-SHADOWINACTIVE:CAPS"></a>LU_SHADOWINACTIVE</h3>
+<a class="indexterm" name="id2615504"></a><pre class="programlisting">#define LU_SHADOWINACTIVE	"sp_inact"
+</pre>
+<p>
+Days after the password lifetime expires when the user account is disabled
+(because it is considered inactive), a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.  -1 to disable inactive
+account disabling.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615533"></a><h3>
+<a name="LU-SHADOWEXPIRE:CAPS"></a>LU_SHADOWEXPIRE</h3>
+<a class="indexterm" name="id2615546"></a><pre class="programlisting">#define LU_SHADOWEXPIRE		"sp_expire"
+</pre>
+<p>
+The number of days since the epoch to the day when the account expires and
+is disabled, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.  -1 to disable account expiration.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615575"></a><h3>
+<a name="LU-SHADOWFLAG:CAPS"></a>LU_SHADOWFLAG</h3>
+<a class="indexterm" name="id2615586"></a><pre class="programlisting">#define LU_SHADOWFLAG		"sp_flag"
+</pre>
+<p>
+A reserved value "for future use", a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-LONG:CAPS"
+><code class="literal">G_TYPE_LONG</code></a>.  In most cases the value is
+-1.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615614"></a><h3>
+<a name="LU-COMMONNAME:CAPS"></a>LU_COMMONNAME</h3>
+<a class="indexterm" name="id2615626"></a><pre class="programlisting">#define LU_COMMONNAME		"cn"
+</pre>
+<p>
+User's real name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615652"></a><h3>
+<a name="LU-GIVENNAME:CAPS"></a>LU_GIVENNAME</h3>
+<a class="indexterm" name="id2615664"></a><pre class="programlisting">#define LU_GIVENNAME		"givenName"
+</pre>
+<p>
+User's given name, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615690"></a><h3>
+<a name="LU-SN:CAPS"></a>LU_SN</h3>
+<a class="indexterm" name="id2615702"></a><pre class="programlisting">#define LU_SN			"sn"
+</pre>
+<p>
+User's surname, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615728"></a><h3>
+<a name="LU-ROOMNUMBER:CAPS"></a>LU_ROOMNUMBER</h3>
+<a class="indexterm" name="id2615741"></a><pre class="programlisting">#define LU_ROOMNUMBER		"roomNumber"
+</pre>
+<p>
+User's room number, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615767"></a><h3>
+<a name="LU-TELEPHONENUMBER:CAPS"></a>LU_TELEPHONENUMBER</h3>
+<a class="indexterm" name="id2615780"></a><pre class="programlisting">#define LU_TELEPHONENUMBER	"telephoneNumber"
+</pre>
+<p>
+User's telephone number, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615807"></a><h3>
+<a name="LU-HOMEPHONE:CAPS"></a>LU_HOMEPHONE</h3>
+<a class="indexterm" name="id2615819"></a><pre class="programlisting">#define LU_HOMEPHONE		"homePhone"
+</pre>
+<p>
+User's home telephone number, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615845"></a><h3>
+<a name="LU-EMAIL:CAPS"></a>LU_EMAIL</h3>
+<a class="indexterm" name="id2615858"></a><pre class="programlisting">#define LU_EMAIL		"mail"
+</pre>
+<p>
+User's email address, a <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html#G-TYPE-STRING:CAPS"
+><code class="literal">G_TYPE_STRING</code></a>.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615884"></a><h3>
+<a name="lu-ent-new"></a>lu_ent_new ()</h3>
+<a class="indexterm" name="id2615896"></a><pre class="programlisting">lu_ent_t*   lu_ent_new                      (void);</pre>
+<p>
+Creates a new, empty struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>the created entity, which should be deallocated by <a href="libuser-entity.html#lu-ent-free"><code class="function">lu_ent_free()</code></a>
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2615952"></a><h3>
+<a name="lu-ent-free"></a>lu_ent_free ()</h3>
+<a class="indexterm" name="id2615964"></a><pre class="programlisting">void        lu_ent_free                     (lu_ent_t *ent);</pre>
+<p>
+Frees an struct <span class="type">lu_ent</span>, including all strings it owns.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>the entity to free
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616018"></a><h3>
+<a name="lu-ent-copy"></a>lu_ent_copy ()</h3>
+<a class="indexterm" name="id2616031"></a><pre class="programlisting">void        lu_ent_copy                     (lu_ent_t *source,
+                                             lu_ent_t *dest);</pre>
+<p>
+Copies one struct <span class="type">lu_ent</span> over another.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>source</code></em>&#160;:</span></td>
+<td>the entity to copy
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>dest</code></em>&#160;:</span></td>
+<td>the destination space, must be already allocated by <a href="libuser-entity.html#lu-ent-new"><code class="function">lu_ent_new()</code></a>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616118"></a><h3>
+<a name="lu-ent-commit"></a>lu_ent_commit ()</h3>
+<a class="indexterm" name="id2616130"></a><pre class="programlisting">void        lu_ent_commit                   (lu_ent_t *ent);</pre>
+<p>
+Sets pending attribute changes as current values of the entity.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616177"></a><h3>
+<a name="lu-ent-revert"></a>lu_ent_revert ()</h3>
+<a class="indexterm" name="id2616190"></a><pre class="programlisting">void        lu_ent_revert                   (lu_ent_t *ent);</pre>
+<p>
+Replaces all attributes with changes pending by their current values,
+forgetting the pending changes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616238"></a><h3>
+<a name="lu-ent-add"></a>lu_ent_add ()</h3>
+<a class="indexterm" name="id2616250"></a><pre class="programlisting">void        lu_ent_add                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Appends <em class="parameter"><code>value</code></em> to pending attribute <em class="parameter"><code>attr</code></em> in a struct <span class="type">lu_ent</span> if <em class="parameter"><code>value</code></em>
+is not yet in the list of <em class="parameter"><code>attr</code></em> values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>new attribute value
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616372"></a><h3>
+<a name="lu-ent-add-current"></a>lu_ent_add_current ()</h3>
+<a class="indexterm" name="id2616385"></a><pre class="programlisting">void        lu_ent_add_current              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Appends <em class="parameter"><code>value</code></em> to current attribute <em class="parameter"><code>attr</code></em> in a struct <span class="type">lu_ent</span> if <em class="parameter"><code>value</code></em>
+is not yet in the list of <em class="parameter"><code>attr</code></em> values.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>new attribute value
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616506"></a><h3>
+<a name="lu-ent-clear"></a>lu_ent_clear ()</h3>
+<a class="indexterm" name="id2616519"></a><pre class="programlisting">void        lu_ent_clear                    (lu_ent_t *ent,
+                                             const char *attr);</pre>
+<p>
+Removes all values of pending attribute <em class="parameter"><code>attribute</code></em> from a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616601"></a><h3>
+<a name="lu-ent-clear-all"></a>lu_ent_clear_all ()</h3>
+<a class="indexterm" name="id2616613"></a><pre class="programlisting">void        lu_ent_clear_all                (lu_ent_t *ent);</pre>
+<p>
+Removes all pending attributes from a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616668"></a><h3>
+<a name="lu-ent-clear-all-current"></a>lu_ent_clear_all_current ()</h3>
+<a class="indexterm" name="id2616681"></a><pre class="programlisting">void        lu_ent_clear_all_current        (lu_ent_t *ent);</pre>
+<p>
+Removes all current attributes from a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616736"></a><h3>
+<a name="lu-ent-clear-current"></a>lu_ent_clear_current ()</h3>
+<a class="indexterm" name="id2616748"></a><pre class="programlisting">void        lu_ent_clear_current            (lu_ent_t *ent,
+                                             const char *attr);</pre>
+<p>
+Removes all values of current attribute <em class="parameter"><code>attribute</code></em> from a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616831"></a><h3>
+<a name="lu-ent-del"></a>lu_ent_del ()</h3>
+<a class="indexterm" name="id2616843"></a><pre class="programlisting">void        lu_ent_del                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Removes a pending attribute <em class="parameter"><code>attr</code></em> value <em class="parameter"><code>value</code></em> from a struct <span class="type">lu_ent</span>, if
+present.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>attribute value
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2616953"></a><h3>
+<a name="lu-ent-del-current"></a>lu_ent_del_current ()</h3>
+<a class="indexterm" name="id2616966"></a><pre class="programlisting">void        lu_ent_del_current              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html#GValue"
+>GValue</a> *value);</pre>
+<p>
+Removes a current attribute <em class="parameter"><code>attr</code></em> value <em class="parameter"><code>value</code></em> from a struct <span class="type">lu_ent</span>, if
+present.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>value</code></em>&#160;:</span></td>
+<td>attribute value
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617076"></a><h3>
+<a name="lu-ent-dump"></a>lu_ent_dump ()</h3>
+<a class="indexterm" name="id2617088"></a><pre class="programlisting">void        lu_ent_dump                     (lu_ent_t *ent,
+                                             FILE *fp);</pre>
+<p>
+Dumps an struct <span class="type">lu_ent</span> to a file in text form, for debugging.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>the entity to dump
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>fp</code></em>&#160;:</span></td>
+<td>destination file
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617164"></a><h3>
+<a name="lu-ent-get"></a>lu_ent_get ()</h3>
+<a class="indexterm" name="id2617176"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_ent_get                     (lu_ent_t *ent,
+                                             const char *attribute);</pre>
+<p>
+Returns values associated with a pending attribute in a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attribute</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>an array of values, valid at least until they are modified or
+deleted. The array is never empty and it should not be freed by the caller.
+Returns <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> if the attribute is not present at all or on error.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617276"></a><h3>
+<a name="lu-ent-get-attributes"></a>lu_ent_get_attributes ()</h3>
+<a class="indexterm" name="id2617289"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*      lu_ent_get_attributes           (lu_ent_t *ent);</pre>
+<p>
+Returns a list of all pending attributes in a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> of attribute names.  The list (but not the strings
+in the list) should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617364"></a><h3>
+<a name="lu-ent-get-attributes-current"></a>lu_ent_get_attributes_current ()</h3>
+<a class="indexterm" name="id2617377"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+>GList</a>*      lu_ent_get_attributes_current   (lu_ent_t *ent);</pre>
+<p>
+Returns a list of all current attributes in a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a <a
+href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"
+><span class="type">GList</span></a> of attribute names.  The list (but not the strings
+in the list) should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617451"></a><h3>
+<a name="lu-ent-get-current"></a>lu_ent_get_current ()</h3>
+<a class="indexterm" name="id2617465"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_ent_get_current             (lu_ent_t *ent,
+                                             const char *attribute);</pre>
+<p>
+Returns values associated with a current attribute in a struct <span class="type">lu_ent</span>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attribute</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a list of values, valid at least until they are modified or deleted.
+The list should not be freed by the caller.  Returns <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> if the attribute is
+not present at all or on error.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617564"></a><h3>
+<a name="lu-ent-has"></a>lu_ent_has ()</h3>
+<a class="indexterm" name="id2617576"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_ent_has                      (lu_ent_t *ent,
+                                             const char *attribute);</pre>
+<p>
+Checks if a struct <span class="type">lu_ent</span> has at least one pending attribute <em class="parameter"><code>attribute</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attribute</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if <em class="parameter"><code>attribute</code></em> has a value in <em class="parameter"><code>ent</code></em>.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617690"></a><h3>
+<a name="lu-ent-has-current"></a>lu_ent_has_current ()</h3>
+<a class="indexterm" name="id2617703"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_ent_has_current              (lu_ent_t *ent,
+                                             const char *attribute);</pre>
+<p>
+Checks if a struct <span class="type">lu_ent</span> has at least one current attribute <em class="parameter"><code>attribute</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attribute</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if <em class="parameter"><code>attribute</code></em> has a value in <em class="parameter"><code>ent</code></em>.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617816"></a><h3>
+<a name="lu-ent-set"></a>lu_ent_set ()</h3>
+<a class="indexterm" name="id2617829"></a><pre class="programlisting">void        lu_ent_set                      (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a> *values);</pre>
+<p>
+Replaces all pending attributes <em class="parameter"><code>attr</code></em> in a struct <span class="type">lu_ent</span> by a copy of
+<em class="parameter"><code>values</code></em>.  If <em class="parameter"><code>values</code></em> is empty, it removes the pending attribute completely.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>values</code></em>&#160;:</span></td>
+<td>an array of values
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2617945"></a><h3>
+<a name="lu-ent-set-current"></a>lu_ent_set_current ()</h3>
+<a class="indexterm" name="id2617958"></a><pre class="programlisting">void        lu_ent_set_current              (lu_ent_t *ent,
+                                             const char *attr,
+                                             const <a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a> *values);</pre>
+<p>
+Replaces all current attributes <em class="parameter"><code>attr</code></em> in a struct <span class="type">lu_ent</span> by a copy of
+<em class="parameter"><code>values</code></em>.  If <em class="parameter"><code>values</code></em> is empty, it removes the current attribute completely.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>attr</code></em>&#160;:</span></td>
+<td>attribute name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>values</code></em>&#160;:</span></td>
+<td>an array of values
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+AR=
+BINUTILS_DIR=binutils-2.17.50.0.12
+BINUTILS_EXTRA_CONFIG=
+BUILD=i686-pc-linux-gnu
+BUILD_DIR=/opt/eldk/build/ppc-2008-04-01/work/usr/src/denx/BUILD/crosstool-0.43/build/gcc-4.2.2-glibc-20070515T2025-eldk/powerpc-linux
+CC=
+DEJAGNU=
+EXTRA_TARGET_CFLAGS=-fgnu89-inline
+GCC_BUILD=
+GCC_CORE_DIR=gcc-4.2.2
+GCC_DIR=gcc-4.2.2
+GCC_EXTRA_CONFIG= --disable-hosted-libstdcxx
+GCC_HOST=
+GCC_LANGUAGES=c,c++,java
+GDB_DIR=
+GLIBC_ADDON_OPTIONS==nptl,ports
+GLIBC_DIR=glibc-20070515T2025
+GLIBC_EXTRA_CC_ARGS=
+GLIBC_EXTRA_CONFIG=--with-tls --with-__thread --with-tls --with-__thread --enable-kernel=2.6.0
+GLIBC_EXTRA_ENV=
+JUST_DOWNLOAD=
+KERNELCONFIG=
+LINUX_DIR=linux-2.6-denx
+LINUX_SANITIZED_HEADER_DIR=
+NO_DOWNLOAD=
+PREFIX=/var/tmp/eldk.UZpAG7/usr/crosstool/gcc-4.2.2-glibc-20070515T2025-eldk/powerpc-linux
+PTXDIST_DIR=
+SHARED_MODE=--enable-shared
+SRC_DIR=/opt/eldk/build/ppc-2008-04-01/work/usr/src/denx/BUILD/crosstool-0.43/build/gcc-4.2.2-glibc-20070515T2025-eldk/powerpc-linux
+TARBALLS_DIR=
+TARGET=powerpc-linux
+TARGET_CFLAGS=-O
+TOP_DIR=/opt/eldk/build/ppc-2008-04-01/work/usr/src/denx/BUILD/crosstool-0.43
+USE_SYSROOT=

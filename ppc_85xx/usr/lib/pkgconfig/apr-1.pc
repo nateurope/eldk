@@ -1,0 +1,11 @@
+prefix=/etc/httpd
+exec_prefix=/usr
+libdir=/usr/lib
+APR_MAJOR_VERSION=1
+includedir=/usr/include/httpd
+
+Name: APR
+Description: The Apache Portable Runtime library
+Version: 1.2.8
+Libs: -L${libdir} -lapr-${APR_MAJOR_VERSION} -luuid -lrt -lcrypt  -ldl
+Cflags: -DLINUX=2 -D_REENTRANT -D_GNU_SOURCE  -I${includedir}

@@ -1,0 +1,1 @@
+../../../../../../../local/xenomai/kbuild/ksrc/skins/psos+/demos/Makefile

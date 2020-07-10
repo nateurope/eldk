@@ -1,0 +1,94 @@
+#! /bin/sh
+#
+# rpcbind       Start/Stop RPCbind
+#
+# chkconfig: 345 13 87
+# description: The rpcbind utility is a server that converts RPC program \
+#              numbers into universal addresses. It must be running on the \
+#              host to be able to make RPC calls on a server on that machine.
+#
+# processname: rpcbind
+# probe: true
+# config: /etc/sysconfig/nfs
+
+
+
+# This is an interactive program, we need the current locale
+[ -f /etc/profile.d/lang.sh ] && . /etc/profile.d/lang.sh
+# We can't Japanese on normal console at boot time, so force LANG=C.
+if [ "$LANG" = "ja" -o "$LANG" = "ja_JP.eucJP" ]; then
+    if [ "$TERM" = "linux" ] ; then
+        LANG=C
+    fi
+fi
+
+# Source function library.
+. /etc/init.d/functions
+
+# Get config.
+if [ -f /etc/sysconfig/network ]; then
+    . /etc/sysconfig/network
+else
+    echo $"Networking not configured - exiting"
+    exit 1
+fi
+
+prog="rpcbind"
+
+# Check that networking is up.
+if [ "$NETWORKING" = "no" ]; then
+	exit 0
+fi
+
+[ -f /sbin/$prog ] || exit 0
+
+[ -f /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+RETVAL=0
+
+start() {
+        echo -n $"Starting $prog: "
+        daemon $prog $RPCBIND_ARGS
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
+	return $RETVAL
+}
+
+
+stop() {
+        echo -n $"Stopping $prog: "
+        killproc $prog
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && {
+			rm -f /var/lock/subsys/$prog
+			rm -f /var/run/rpcbind*
+		}
+	return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status $prog
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	;;
+  condrestart)
+	[ -f /var/lock/subsys/$prog ] && restart || :
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|reload|condrestart}"
+	exit 1
+esac
+
+exit $?

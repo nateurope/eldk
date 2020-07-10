@@ -1,0 +1,1 @@
+switchtest:posix+rtdm+switchtest:!/usr/local/xenomai/bin/switchtest;popall:control_c

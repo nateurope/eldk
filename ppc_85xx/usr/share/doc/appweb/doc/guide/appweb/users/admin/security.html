@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.we3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><title>Mbedthis AppWeb Security</title>
+
+<!-- BeginDsi "dsi/meta.html" -->
+	<meta name="keywords" content="embedded web server, web server software, 
+		embedded HTTP, application web server, embedded server,
+		small web server, HTTP server, library web server, library HTTP,
+		HTTP library" />
+	<meta name="description" content="Mbedthis Sofware provides 
+		open source embedded web servers for devices and applications." />
+	<meta name="robots" content="index,follow" />
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<!-- EndDsi -->
+
+
+<!-- BeginDsi "dsi/js.html" -->
+	<script language="JavaScript" type="text/javascript">
+		document._ROOT_="../../../../";
+	</script>
+<!-- EndDsi -->
+
+
+<!-- BeginDsi "dsi/style.html" -->
+	<link rel="stylesheet" type="text/css" href="../../../../css/doc.css">
+<!-- EndDsi -->
+
+</head><body marginwidth="0" marginheight="0" topmargin="0" leftmargin="0">
+
+<!-- BeginDsi "dsi/navTop.html" -->
+	<div class="background">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td>
+					<a name="top"></a>
+					<img src="../../../../images/backLeft.png" width="400" 
+						height="93" border="0" ismap usemap="#home" /><br />
+					<map name="home">
+						<area coords="0,0,93,93" 
+						href="http://www.mbedthis.com/index.html" />
+					</map>
+				</td>
+				<td width="100%">
+					<img src="../../../../images/backMiddle.png" width="100%" 
+						height="93" border="0" /><br />
+				</td>
+				<td>
+					<img src="../../../../images/backRight.png" width="354" 
+						height="93" border="0" /><br />
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="navTop"> 
+		<table cellpadding="0" cellspacing="0" border="0" align="top">
+			<tr>
+				<td valign="bottom"> 
+					<a href="http://www.mbedthis.com/" class="navTop"
+					>Mbedthis Home</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../../product/index.html" class="navTop"
+					>Documentation Home</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../../guide/appweb/users/admin/overview.html" class="navTop"
+					>Administration</a> |&nbsp;
+				</td>
+				<td valign="bottom"> 
+					<a href="../../../../api/gen/appweb/overview.html" class="navTop"
+					>Programmers Reference</a>
+				</td>
+				<td valign="bottom"> 
+<!--
+					<form class="smallText" action="../../../../search.php" 
+						method="post" name="searchForm" id="searchForm">
+					</form>
+					&nbsp; 
+					<input class="smallText" type="text" name="search" 
+						align="right" id="searchInput" size="15" maxlength="50"
+						value="Sorry, No Searching" />
+-->
+				</td>
+			</tr>
+		</table>
+	</div>
+
+<!-- EndDsi -->
+
+
+<div class="navHistory"> 
+<!-- BeginDsi "dsi/navHistory.html" -->
+	<a href="../../../../product/index.html">Documentation Home</a> &gt; 
+<!-- EndDsi -->
+
+	<a href="overview.html">Administration</a> &gt; <span style="color: rgb(248, 248, 248); font-weight: bold;">Security</span>
+</div>
+
+
+<table height="100%" border="0" class="contentTable">
+
+	<tbody><tr>
+		<td class="content">
+			<div class="guideHeader">
+			<h1>
+
+<!-- BeginDsi "dsi/backArrow.html" -->
+			<a href="../../../../product/index.html"><img width="19" height="14" 
+				class="nav" src="../../../../images/leftArrow.gif" /></a>
+<!-- EndDsi -->
+
+Security</h1>
+</div>
+<div class="guideSection">
+Securing applications that are accessible
+to the Internet is not a trivial task. This page outlines some of the
+issues and offers tips to help you secure your application using the
+Mbedthis AppWeb product.<br>
+      <h2><a name="updates"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Updates</h2>
+Even the best application or HTTP server can experience some security
+vulnerabilities that are discovered after being deployed in the field.
+It is highly recommended that you stay up to date with the latest
+version of AppWeb. <br>
+      <br>
+				Mbedthis offers a Security Enhancement Service as part of the 
+				commercial license that will proactively notify you of any security 
+				flaws and will expedite fixes or workarounds to minimize the vulnerability.<br>
+      <h2><a name="account"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+AppWeb User Account</h2>It is
+important that you run AppWeb with the lowest system privilege that
+will get the job done. If any application is compromised, including
+AppWeb, then the system will be safest if the compromised application
+has as few privileges as possible.<br>
+      <br>On Linux, AppWeb initially runs as <span style="font-weight: bold;">root</span> or <span style="font-weight: bold;">administrator</span>
+and then changes to the user account defined in the AppWeb configuration
+file. As installed, AppWeb will be configured to run in the <span style="font-weight: bold;">nobody</span> account on Linux. You may modify the user and group account for AppWeb by changing the <a href="../configuration.html">configuration file</a>.<br>
+      <p>On Windows when running as a system service, AppWeb will run
+using the LocalSystem account. This account has no privileges to access
+the network using network drives, named pipes, RPC or DCOM. However, it
+has considerable privileges locally. It is suggested that you create a
+dedicated account for AppWeb to minimize the priviliges available
+should AppWeb be compromised. </p>
+      <p>When creating an account for AppWeb, ensure you do the following:<br>
+      </p>
+      <ul>
+        <li>Using the Group Policy manager, grant the account the
+privilege of "Act as part of the operating system" and "Log on as a
+service".</li>
+        <li>Ensure the account is a member of the "Users" group.</li>
+        <li>Give the account read and execute rights to all HTML documents</li>
+        <li>Give the account read, write, execute and delete rights to the logs directory</li>
+        <li>Give the account read and execute rights to the appweb.exe and the DLLs in the libs directory.<br>
+        </li>
+      </ul>
+
+      
+      <h2><a name="directoryPermissions"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Directory and File Permissions</h2>
+      <p>
+When AppWeb is installed, it is configured for maximum security. This
+section explains the policy used, incase you need to move or modify
+files and directories. </p>
+      <p>
+To enhance security, you need to consider the directory and file permissions for three classes of content:</p>
+
+      <ul>
+        <li>Pages served by the HTTP server</li>
+        <li>Scripts run by the HTTP server</li>
+        <li>Configuration and log files used by the HTTP server.</li>
+      </ul>
+Pages served by the AppWeb server should be owned by <span style="font-weight: bold;">root</span> or <span style="font-weight: bold;">administrator</span>
+and should be only readable by the AppWeb user account. Directories
+containing served pages should be readable and executable only.<br>
+      <br>
+Scripts run by the AppWeb server should always be outside the directory
+containing served pages. After all, you don't want prying eyes viewing
+your scripts! Scripts should be owned by <span style="font-weight: bold;">root</span> or <span style="font-weight: bold;">administrator</span> and should only be readable and executable by the AppWeb user account.<br>
+      <br>
+Configuration and log files used by the AppWeb server should always be
+outside the directory containing served pages or scripts. The directory
+containing the log files must be writable by the AppWeb user account. <br>
+      <h3>ServerRoot Permissions</h3>The
+root directory for AppWeb is called the ServerRoot directory and is
+defined by the ServerRoot directive in the configuration file. <span style="font-weight: bold;"></span>The ServerRoot directory and the logs and lib directory below it should be owned by <span style="font-weight: bold;">root </span>or <span style="font-weight: bold;">admin</span>, be in the group <span style="font-weight: bold;">root</span> or <span style="font-weight: bold;">administrators</span>, and should only be writable by this user and group.<br>
+      <br>
+For Linux, these commands will ensure the privileges are correctly setup:
+      <pre>cd	/etc/appweb<br>chown	root . lib logs<br>chgrp	root . lib logs<br>chmod	755 . lib logs</pre>
+      <br>
+      <h2><a name="dynamicContent"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Dynamic Content</h2>
+AppWeb supports an in-process method of dynamic content
+creation called Embedded Server Pages (ESP). ESP will execute HTML
+pages with embedded code and scripts and process them before returning
+the result to the client. Properly configured,
+your scripts will not be readable by users and they will only see the
+generated content.<br>
+      <h3>Embedded Server Pages</h3>
+To keep server-side ESP scripts private, you must have the ESP handler
+configured to process the required script extensions or URL prefixes.
+If a script extension is not configured, the static page handler may
+process the page and return the raw script back to the user. As
+installed, AppWeb defines the ".esp" and ".asp" extensions for ESP
+pages.<br>
+      <h3>Embedded Gateway Interface</h3>
+EGI forms are secure from file-based permission flaws because they run in-process and access no files.<br>
+      <br>
+      <h2><a name="ssl"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+SSL Servers</h2>
+If you configure a SSL virtual server, remember to define a separate
+DocumentRoot if you want to only serve private content to SSL users.
+Otherwise those pages will also be visible via the default server.<br>
+      <br>
+      <h2><a name="authentication"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Authentication</h2>
+It is highly recommended that you not use basic authentication and only
+use digest authentication. As implemented in AppWeb, digest
+authentication provides many safeguards against known exploits
+including; man-in-the-middle attacks, client spoofing, and replay
+attacks.<br>
+      <br>
+      <h2><a name="sandBoxing"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Sandboxing</h2>
+Sandboxing is the term applied to running AppWeb in a confined
+environment. When embedding a HTTP server in an application, the
+profile of user access is often well known. This profile includes the
+rate of accesses, the length of URLs and the size of pages returned to
+the user.<br>
+      <br>
+AppWeb has a set of configuration file directives that allow you to
+define a sandbox which specifies how AppWeb must be used for a request
+to be serviced. By using well defined sandbox directives, you can help
+ensure that your application will not be compromised by malicious
+requests. By default, AppWeb has a relaxed set of defaults that will permit a wide range of requests.<br>
+      <br>
+The sandbox directives can specify:<br>
+      <br>
+      <table style="text-align: left; width: 100%;" border="1" cellspacing="2" cellpadding="2">
+        <tbody>
+          <tr>
+            <td style="vertical-align: top;">LimitBufferedBody<br>
+            </td>
+            <td style="vertical-align: top;">Maximum size of generated dynamic data</td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">LimitRequestBody<br>
+            </td>
+            <td style="vertical-align: top;">Maximum size of the incoming request body<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">LimitRequestFields<br>
+            </td>
+            <td style="vertical-align: top;">Maximum number of headers in the request<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">LimitRequestFieldSize<br>
+            </td>
+            <td style="vertical-align: top;">Maximum size of the request header<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">LimitUrl<br>
+            </td>
+            <td style="vertical-align: top;">Maximum size of a URL<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">SendBufferSize<br>
+            </td>
+            <td style="vertical-align: top;">Size of the TCP/IP buffer to use for requests<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">StartThreads<br>
+            </td>
+            <td style="vertical-align: top;">Number of threads to preallocate in the thread pool<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">ThreadLimit<br>
+            </td>
+            <td style="vertical-align: top;">Maximum number of threads to allocate on demand for the thread pool<br>
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: top;">ThreadStackSize<br>
+            </td>
+            <td style="vertical-align: top;">Size of the per-thread stack<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h2><a name="logFiles"></a>
+
+			<a href="#top"><img width="16" height="16" class="nav" src="../../../../images/upArrow.gif"></a>
+
+Log Files</h2>
+AppWeb will log satisfied requests to the access log (usually logs/access.log) 
+				and errors to the error log (usually logs/error.log). It is recommended 
+				that you regularly review these logs for suspicious activity.<br>
+<br>
+      <br>
+</div>
+			
+		</td>
+		<td class="contentSep"><br>
+</td>
+		<td class="contentSideBar"> 
+			<div class="linkSection"> 
+				
+				<h2>Quick Nav</h2><a href="#updates">Updates</a><a href="#account"><br>
+AppWeb User Account</a><br>
+      <a href="#directoryPermissions">Directory Permissions</a><br>
+      <a href="#dynamicContent">Dynamic Content<br>
+      </a><a href="#ssl">Secure Sockets Layer<br>
+      </a><a href="#authentication">Authentication</a><br>
+      <a href="#sandBoxing">Sandboxing</a>
+
+      <h2>See Also</h2>
+
+					<a href="starting.html">Starting and Stopping AppWeb<br>
+      </a><a href="service.html">Running as a Service</a><br>
+
+      <a href="logFiles.html">Log Files</a><br>
+<a href="../../../../product/install/overview.html">Installation Overview</a><br>
+</div>
+		</td>
+	</tr>
+</tbody>
+</table>
+<!-- BeginDsi "dsi/terms.html" -->
+<p class="terms"> 
+	<a href="../../../../product/copyright.html"
+		>&copy; Mbedthis Software LLC, 2003-2006. All 
+		rights reserved. Mbedthis is a trademark of Mbedthis Software LLC.</a>
+</p>
+<!-- EndDsi -->
+
+
+</body></html>

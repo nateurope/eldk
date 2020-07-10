@@ -1,0 +1,106 @@
+#!/bin/bash
+#
+# chkconfig: - 65 35
+# description: dhcpd provide access to Dynamic Host Control Protocol.
+
+# Source function library.
+. /etc/init.d/functions
+
+RETVAL=0
+prog=dhcpd
+dhcpd=/usr/sbin/dhcpd
+lockfile=/var/lock/subsys/dhcpd
+
+. /etc/sysconfig/dhcpd
+
+cfOption() {
+    let i=0
+    for a in $* ; do
+        ((++i))
+        if [ $a = -cf ]; then
+            ((++i))
+            eval 'echo $'$i
+        elif [[ $a = -cf* ]]; then
+            echo ${a#-cf}
+        fi
+    done
+}
+
+CF=`cfOption $DHCPDARGS`
+if [ -z "$CF" ]; then
+    CF='/etc/dhcpd.conf'
+fi
+
+[ -f "$CF" ] || exit 0
+
+if [ ! -f /var/lib/dhcpd/dhcpd.leases ] ; then
+    mkdir -p /var/lib/dhcpd
+    touch /var/lib/dhcpd/dhcpd.leases
+    [ -x /sbin/restorecon ] && [ -d /selinux ] && /sbin/restorecon /var/lib/dhcp/dhcpd.leases >/dev/null 2>&1
+fi
+
+configtest() {
+    [ -x $dhcpd ] || return 5
+    [ -f $CF ] || return 6
+    $dhcpd -q -t -cf $CF
+    RETVAL=$?
+    return $RETVAL
+}
+
+start() {
+    [ -x $dhcpd ] || return 5
+    [ -f $CF ] || return 6
+    echo -n $"Starting $prog: "
+    daemon $dhcpd $DHCPDARGS 2>/dev/null
+    RETVAL=$?
+    echo
+    [ $RETVAL = 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Shutting down $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL = 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    reload)
+        RETVAL=3
+        ;;
+    restart)
+        configtest || exit $?
+        stop
+        start
+        ;;
+    condrestart)
+        if [ -f $lockfile ]; then
+            stop
+            start
+        fi
+        ;;
+    configtest|check|testconfig|test)
+        configtest
+        RETVAL=$?
+        ;;
+    status)
+        status $prog
+        RETVAL=$?
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|configtest|status}"
+        RETVAL=3
+        ;;
+esac
+
+exit $RETVAL

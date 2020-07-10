@@ -1,0 +1,1 @@
+../../../../../local/xenomai/kbuild/ksrc/arch/powerpc/switch_32.S

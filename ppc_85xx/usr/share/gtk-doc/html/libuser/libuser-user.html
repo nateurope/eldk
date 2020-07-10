@@ -1,0 +1,1899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>user</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="index.html" title="libuser Reference Manual">
+<link rel="up" href="ch01.html" title="libuser">
+<link rel="prev" href="libuser-prompt.html" title="prompt">
+<meta name="generator" content="GTK-Doc V1.7 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="chapter" href="ch01.html" title="libuser">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libuser-prompt.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">libuser Reference Manual</th>
+<td>&#160;</td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#id2623922" class="shortcut">Top</a>
+                  &#160;|&#160;
+                  <a href="#id2625617" class="shortcut">Description</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libuser-user"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2>
+<a name="id2623922"></a><span class="refentrytitle">user</span>
+</h2>
+<p>user &#8212; 
+Functions for initializing the library, looking up information, and making 
+changes to the system information store.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Synopsis</h2>
+<pre class="synopsis">
+
+
+
+lu_context_t* <a href="libuser-user.html#lu-start">lu_start</a>                      (const char *authname,
+                                             lu_entity_type_t auth_type,
+                                             const char *modules,
+                                             const char *create_modules,
+                                             lu_prompt_fn *prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> callback_data,
+                                             lu_error_t **error);
+void        <a href="libuser-user.html#lu-end">lu_end</a>                          (lu_context_t *context);
+void        <a href="libuser-user.html#lu-set-prompter">lu_set_prompter</a>                 (lu_context_t *context,
+                                             lu_prompt_fn *prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> callback_data);
+void        <a href="libuser-user.html#lu-get-prompter">lu_get_prompter</a>                 (lu_context_t *context,
+                                             lu_prompt_fn **prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> *callback_data);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-set-modules">lu_set_modules</a>                  (lu_context_t *context,
+                                             const char *list,
+                                             lu_error_t **error);
+const char* <a href="libuser-user.html#lu-get-modules">lu_get_modules</a>                  (lu_context_t *context);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-uses-elevated-privileges">lu_uses_elevated_privileges</a>     (lu_context_t *context);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-lookup-name">lu_user_lookup_name</a>             (lu_context_t *context,
+                                             const char *name,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-lookup-id">lu_user_lookup_id</a>               (lu_context_t *context,
+                                             uid_t uid,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-default">lu_user_default</a>                 (lu_context_t *ctx,
+                                             const char *name,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> system_account,
+                                             struct lu_ent *ent);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-add">lu_user_add</a>                     (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-modify">lu_user_modify</a>                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-delete">lu_user_delete</a>                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-setpass">lu_user_setpass</a>                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             const char *newpass,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> crypted,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-removepass">lu_user_removepass</a>              (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-lock">lu_user_lock</a>                    (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-unlock">lu_user_unlock</a>                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-unlock-nonempty">lu_user_unlock_nonempty</a>         (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-user-islocked">lu_user_islocked</a>                (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-user.html#lu-users-enumerate">lu_users_enumerate</a>             (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-user.html#lu-users-enumerate-by-group">lu_users_enumerate_by_group</a>    (lu_context_t *context,
+                                             const char *group,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Pointer-Arrays.html#GPtrArray"
+>GPtrArray</a>*  <a href="libuser-user.html#lu-users-enumerate-full">lu_users_enumerate_full</a>         (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-lookup-name">lu_group_lookup_name</a>            (lu_context_t *context,
+                                             const char *name,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-lookup-id">lu_group_lookup_id</a>              (lu_context_t *context,
+                                             gid_t gid,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-default">lu_group_default</a>                (lu_context_t *ctx,
+                                             const char *name,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> system_account,
+                                             struct lu_ent *ent);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-add">lu_group_add</a>                    (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-modify">lu_group_modify</a>                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-delete">lu_group_delete</a>                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-setpass">lu_group_setpass</a>                (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             const char *newpass,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> crypted,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-removepass">lu_group_removepass</a>             (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-lock">lu_group_lock</a>                   (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-unlock">lu_group_unlock</a>                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-unlock-nonempty">lu_group_unlock_nonempty</a>        (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    <a href="libuser-user.html#lu-group-islocked">lu_group_islocked</a>               (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-user.html#lu-groups-enumerate">lu_groups_enumerate</a>            (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* <a href="libuser-user.html#lu-groups-enumerate-by-user">lu_groups_enumerate_by_user</a>    (lu_context_t *context,
+                                             const char *user,
+                                             lu_error_t **error);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Pointer-Arrays.html#GPtrArray"
+>GPtrArray</a>*  <a href="libuser-user.html#lu-groups-enumerate-full">lu_groups_enumerate_full</a>        (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2625617"></a><h2>Description</h2>
+<p>
+
+user.h contains declarations for functions which start up and shut down the
+libuser library, and for functions which perform lookup queries and
+modifications of the system information store.
+
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="id2625635"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="id2625645"></a><h3>
+<a name="lu-start"></a>lu_start ()</h3>
+<a class="indexterm" name="id2625657"></a><pre class="programlisting">lu_context_t* lu_start                      (const char *authname,
+                                             lu_entity_type_t auth_type,
+                                             const char *modules,
+                                             const char *create_modules,
+                                             lu_prompt_fn *prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> callback_data,
+                                             lu_error_t **error);</pre>
+<p>
+Initializes the libuser library.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>authname</code></em>&#160;:</span></td>
+<td>suggested client name to use when connecting to servers, or <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a>
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>auth_type</code></em>&#160;:</span></td>
+<td>whether auth_name is a user or a group
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>modules</code></em>&#160;:</span></td>
+<td>a list of modules to use for queries (separated by whitespace or
+commas), or <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> to use modules specified in the config file
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>create_modules</code></em>&#160;:</span></td>
+<td>a list of modules to use for entity creation (separated by
+whitespace or commas), or <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> to use modules specified in the config file
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>prompter</code></em>&#160;:</span></td>
+<td>a function to use for getting information from the user
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>callback_data</code></em>&#160;:</span></td>
+<td>data for <em class="parameter"><code>prompter</code></em>
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a context which should be freed by <a href="libuser-user.html#lu-end"><code class="function">lu_end()</code></a> on success, <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> on
+failure
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2625917"></a><h3>
+<a name="lu-end"></a>lu_end ()</h3>
+<a class="indexterm" name="id2625929"></a><pre class="programlisting">void        lu_end                          (lu_context_t *context);</pre>
+<p>
+Destroys a libuser library context
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+
+
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2625976"></a><h3>
+<a name="lu-set-prompter"></a>lu_set_prompter ()</h3>
+<a class="indexterm" name="id2625989"></a><pre class="programlisting">void        lu_set_prompter                 (lu_context_t *context,
+                                             lu_prompt_fn *prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> callback_data);</pre>
+<p>
+Changes the prompter function in a context
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>prompter</code></em>&#160;:</span></td>
+<td>a new function to user for getting information from the user
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>callback_data</code></em>&#160;:</span></td>
+<td>data for <em class="parameter"><code>prompter</code></em>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626086"></a><h3>
+<a name="lu-get-prompter"></a>lu_get_prompter ()</h3>
+<a class="indexterm" name="id2626099"></a><pre class="programlisting">void        lu_get_prompter                 (lu_context_t *context,
+                                             lu_prompt_fn **prompter,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a> *callback_data);</pre>
+<p>
+Gets current prompter function from a context
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>prompter</code></em>&#160;:</span></td>
+<td>if not <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a>, points to a place where the current prompter function
+will be stored
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>callback_data</code></em>&#160;:</span></td>
+<td>if not <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a>, points to a place where the current prompter
+function data will be stored
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626213"></a><h3>
+<a name="lu-set-modules"></a>lu_set_modules ()</h3>
+<a class="indexterm" name="id2626226"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_set_modules                  (lu_context_t *context,
+                                             const char *list,
+                                             lu_error_t **error);</pre>
+<p>
+Replaces the current set of modules for queries in <em class="parameter"><code>context</code></em> to <em class="parameter"><code>list</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>list</code></em>&#160;:</span></td>
+<td>a list of modules (separated by whitespace or commas)
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success, <a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS"
+><code class="literal">FALSE</code></a> on failure
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626367"></a><h3>
+<a name="lu-get-modules"></a>lu_get_modules ()</h3>
+<a class="indexterm" name="id2626380"></a><pre class="programlisting">const char* lu_get_modules                  (lu_context_t *context);</pre>
+<p>
+Returns a list of modules for queries in <em class="parameter"><code>context</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a list of modules separated by spaces, or <a
+href="/usr/share/gtk-doc/html/liboil/liboil-liboiljunk.html#NULL:CAPS"
+><code class="literal">NULL</code></a> if the list of
+modules is empty.  The list should not be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626456"></a><h3>
+<a name="lu-uses-elevated-privileges"></a>lu_uses_elevated_privileges ()</h3>
+<a class="indexterm" name="id2626470"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_uses_elevated_privileges     (lu_context_t *context);</pre>
+<p>
+Checks if any module uses elevated privileges (e.g. modifies files that
+normal users can't modify).
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if at least one module uses elevated privileges
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626538"></a><h3>
+<a name="lu-user-lookup-name"></a>lu_user_lookup_name ()</h3>
+<a class="indexterm" name="id2626551"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_lookup_name             (lu_context_t *context,
+                                             const char *name,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Looks up an user by name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>user name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity filled with received information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626690"></a><h3>
+<a name="lu-user-lookup-id"></a>lu_user_lookup_id ()</h3>
+<a class="indexterm" name="id2626703"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_lookup_id               (lu_context_t *context,
+                                             uid_t uid,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Looks up an user by UID.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>uid</code></em>&#160;:</span></td>
+<td>user ID
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity filled with received information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626843"></a><h3>
+<a name="lu-user-default"></a>lu_user_default ()</h3>
+<a class="indexterm" name="id2626856"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_default                 (lu_context_t *ctx,
+                                             const char *name,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> system_account,
+                                             struct lu_ent *ent);</pre>
+<p>
+Fills out an user entity as specified by the config file and modules
+to prepare for creation of the user.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ctx</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>new user name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>system_account</code></em>&#160;:</span></td>
+<td>non-zero if the user is a system user
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2626989"></a><h3>
+<a name="lu-user-add"></a>lu_user_add ()</h3>
+<a class="indexterm" name="id2627002"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_add                     (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Creates an user in all modules specified for entity creation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with resulting account
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627122"></a><h3>
+<a name="lu-user-modify"></a>lu_user_modify ()</h3>
+<a class="indexterm" name="id2627134"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_modify                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Modifies an user entity.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity with pending modifications, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627253"></a><h3>
+<a name="lu-user-delete"></a>lu_user_delete ()</h3>
+<a class="indexterm" name="id2627266"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_delete                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Deletes an user.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627384"></a><h3>
+<a name="lu-user-setpass"></a>lu_user_setpass ()</h3>
+<a class="indexterm" name="id2627396"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_setpass                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             const char *newpass,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> crypted,
+                                             lu_error_t **error);</pre>
+<p>
+Changes an user's password.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>newpass</code></em>&#160;:</span></td>
+<td>new password
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>crypted</code></em>&#160;:</span></td>
+<td>non-zero if <em class="parameter"><code>newpass</code></em> is already encrypted
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with an <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627565"></a><h3>
+<a name="lu-user-removepass"></a>lu_user_removepass ()</h3>
+<a class="indexterm" name="id2627578"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_removepass              (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Changes an user's password to an empty string.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with an <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627698"></a><h3>
+<a name="lu-user-lock"></a>lu_user_lock ()</h3>
+<a class="indexterm" name="id2627710"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_lock                    (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Locks an user account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627829"></a><h3>
+<a name="lu-user-unlock"></a>lu_user_unlock ()</h3>
+<a class="indexterm" name="id2627842"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_unlock                  (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Unlocks an user account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2627961"></a><h3>
+<a name="lu-user-unlock-nonempty"></a>lu_user_unlock_nonempty ()</h3>
+<a class="indexterm" name="id2627973"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_unlock_nonempty         (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Unlocks an user account.  If unlocking the account would result in an empty
+password field, it fails with <code class="literal">lu_error_unlock_empty</code>.  Note that the
+password can still be empty.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628107"></a><h3>
+<a name="lu-user-islocked"></a>lu_user_islocked ()</h3>
+<a class="indexterm" name="id2628120"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_user_islocked                (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Checks if an user account is locked.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the user
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if the account is locked in at least one module
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628239"></a><h3>
+<a name="lu-users-enumerate"></a>lu_users_enumerate ()</h3>
+<a class="indexterm" name="id2628252"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_users_enumerate             (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of all users matching a pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>pattern</code></em>&#160;:</span></td>
+<td>a glob-like pattern for user name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>an array of strings, each representing one user name.  The array
+should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628363"></a><h3>
+<a name="lu-users-enumerate-by-group"></a>lu_users_enumerate_by_group ()</h3>
+<a class="indexterm" name="id2628377"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_users_enumerate_by_group    (lu_context_t *context,
+                                             const char *group,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of all members of a group <em class="parameter"><code>group</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>group</code></em>&#160;:</span></td>
+<td>group name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>an array of strings, each representing one user name.  The array
+should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628493"></a><h3>
+<a name="lu-users-enumerate-full"></a>lu_users_enumerate_full ()</h3>
+<a class="indexterm" name="id2628506"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Pointer-Arrays.html#GPtrArray"
+>GPtrArray</a>*  lu_users_enumerate_full         (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of entities, one for each user matching a pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>pattern</code></em>&#160;:</span></td>
+<td>a glob-like pattern for user name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a list of pointers to user entities.  The entities and the
+list should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628617"></a><h3>
+<a name="lu-group-lookup-name"></a>lu_group_lookup_name ()</h3>
+<a class="indexterm" name="id2628630"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_lookup_name            (lu_context_t *context,
+                                             const char *name,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Looks up a group by name.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>group name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity filled with received information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628770"></a><h3>
+<a name="lu-group-lookup-id"></a>lu_group_lookup_id ()</h3>
+<a class="indexterm" name="id2628784"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_lookup_id              (lu_context_t *context,
+                                             gid_t gid,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Looks up a group by GID.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>gid</code></em>&#160;:</span></td>
+<td>group ID
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity filled with received information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2628923"></a><h3>
+<a name="lu-group-default"></a>lu_group_default ()</h3>
+<a class="indexterm" name="id2628936"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_default                (lu_context_t *ctx,
+                                             const char *name,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> system_account,
+                                             struct lu_ent *ent);</pre>
+<p>
+Fills out a group entity as specified by the config file and modules
+to prepare for creation of the group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>ctx</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>name</code></em>&#160;:</span></td>
+<td>new group name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>system_account</code></em>&#160;:</span></td>
+<td>non-zero if the group is a system group
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629069"></a><h3>
+<a name="lu-group-add"></a>lu_group_add ()</h3>
+<a class="indexterm" name="id2629081"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_add                    (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Creates a group in all modules specified for entity creation.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success updated with resulting account
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629201"></a><h3>
+<a name="lu-group-modify"></a>lu_group_modify ()</h3>
+<a class="indexterm" name="id2629214"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_modify                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Modifies a group entity.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity with pending modifications, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629333"></a><h3>
+<a name="lu-group-delete"></a>lu_group_delete ()</h3>
+<a class="indexterm" name="id2629345"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_delete                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Deletes a group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629463"></a><h3>
+<a name="lu-group-setpass"></a>lu_group_setpass ()</h3>
+<a class="indexterm" name="id2629476"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_setpass                (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             const char *newpass,
+                                             <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> crypted,
+                                             lu_error_t **error);</pre>
+<p>
+Changes a group password.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a contect
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success updated with current
+information and LU_SHADOWLASTCHANGE
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>newpass</code></em>&#160;:</span></td>
+<td>new password
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>crypted</code></em>&#160;:</span></td>
+<td>non-zero if <em class="parameter"><code>newpass</code></em> is already encrypted
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with an <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629645"></a><h3>
+<a name="lu-group-removepass"></a>lu_group_removepass ()</h3>
+<a class="indexterm" name="id2629659"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_removepass             (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Changes a group password to an empty string.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success udpated with current
+information and LU_SHADOWLASTCHANGE
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with in <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629778"></a><h3>
+<a name="lu-group-lock"></a>lu_group_lock ()</h3>
+<a class="indexterm" name="id2629791"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_lock                   (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Locks a group account
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2629910"></a><h3>
+<a name="lu-group-unlock"></a>lu_group_unlock ()</h3>
+<a class="indexterm" name="id2629922"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_unlock                 (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Unlocks a group account.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2630042"></a><h3>
+<a name="lu-group-unlock-nonempty"></a>lu_group_unlock_nonempty ()</h3>
+<a class="indexterm" name="id2630054"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_unlock_nonempty        (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Unlocks a group account.  If unlocking the account would result in an empty
+password field, it fails with <code class="literal">lu_error_unlock_empty</code>.  Note that the
+password can still be empty.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group, on success updated with current
+information
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> on success
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2630187"></a><h3>
+<a name="lu-group-islocked"></a>lu_group_islocked ()</h3>
+<a class="indexterm" name="id2630200"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>    lu_group_islocked               (lu_context_t *context,
+                                             struct lu_ent *ent,
+                                             lu_error_t **error);</pre>
+<p>
+Checks if a group account is locked.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>ent</code></em>&#160;:</span></td>
+<td>an entity describing the group
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if the account is locked in at least one module
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2630319"></a><h3>
+<a name="lu-groups-enumerate"></a>lu_groups_enumerate ()</h3>
+<a class="indexterm" name="id2630332"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_groups_enumerate            (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of all groups matching a pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>pattern</code></em>&#160;:</span></td>
+<td>a glob-like pattern for group name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>an array of strings, each representing one group name.  The array
+should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2630443"></a><h3>
+<a name="lu-groups-enumerate-by-user"></a>lu_groups_enumerate_by_user ()</h3>
+<a class="indexterm" name="id2630456"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html#GValueArray"
+>GValueArray</a>* lu_groups_enumerate_by_user    (lu_context_t *context,
+                                             const char *user,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of all groups containing an user <em class="parameter"><code>user</code></em>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>user</code></em>&#160;:</span></td>
+<td>user name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>an array of strings, each representing one group name.  The array
+should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="id2630572"></a><h3>
+<a name="lu-groups-enumerate-full"></a>lu_groups_enumerate_full ()</h3>
+<a class="indexterm" name="id2630585"></a><pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Pointer-Arrays.html#GPtrArray"
+>GPtrArray</a>*  lu_groups_enumerate_full        (lu_context_t *context,
+                                             const char *pattern,
+                                             lu_error_t **error);</pre>
+<p>
+Returns a list of entities, one for each group matching a pattern.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><span class="term"><em class="parameter"><code>context</code></em>&#160;:</span></td>
+<td>a context
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>pattern</code></em>&#160;:</span></td>
+<td>a glob-like pattern for group name
+</td>
+</tr>
+<tr>
+<td><span class="term"><em class="parameter"><code>error</code></em>&#160;:</span></td>
+<td>filled with a <span class="type">lu_error</span> if an error occurs
+</td>
+</tr>
+<tr>
+<td><span class="term"><span class="emphasis"><em>Returns</em></span>&#160;:</span></td>
+<td>a list of pointers to group entities.  The entities and the
+list should be freed by the caller.
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</body>
+</html>

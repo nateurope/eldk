@@ -1,0 +1,1 @@
+../../../../../../local/xenomai/kbuild/ksrc/skins/posix/thread.c
